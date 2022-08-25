@@ -1,0 +1,24 @@
+.Body-section {
+    text-align: center;
+  }
+.Body-section .Body-link-container {
+    margin-top: 50px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+}
+
+.Body-link-container .Body-link {
+    margin-right: 10px;
+    background-color: tomato;
+    padding: 6px 8px;
+    color: white;
+    font-size: calc(7px + 1.5vmin);
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.Body-link-container .Body-link:hover {
+    background-color: rgb(240, 72, 42);
+}

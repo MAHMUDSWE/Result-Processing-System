@@ -1,14 +1,23 @@
 import React, { useState } from 'react'
+import { Navigate } from 'react-router-dom';
 import HeaderSection from '../../components/header'
 import "./style/admin_login.css"
 
 export default function AdminLogin() {
   const [loginputs, setLogInputs] = useState({});
+  let [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("isLoggedIn"));
 
   const logHandleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setLogInputs(values => ({ ...values, [name]: value }))
+  }
+
+  const logHandleSubmit = (event) => {
+    event.preventDefault();
+
+    localStorage.setItem("isLoggedIn", "true");
+    setIsLoggedIn(localStorage.getItem("isLoggedIn"));
   }
 
   return (
@@ -19,7 +28,7 @@ export default function AdminLogin() {
 
       <div className='Admin-login-container'>
         <p>Admin Login</p>
-        <form >
+        <form onSubmit={logHandleSubmit}>
           <input
             type="text"
             name='username'
@@ -36,8 +45,8 @@ export default function AdminLogin() {
             autoComplete="off"
             required placeholder="Password" />
           <button>Log In</button>
-
-          <a href="#">Forgot your password?</a>
+          <a href="/recover">Forgot your password?</a>
+          {isLoggedIn ? <Navigate to='/admin_workspace' replace /> : <h3> </h3>}
         </form>
       </div>
     </div>

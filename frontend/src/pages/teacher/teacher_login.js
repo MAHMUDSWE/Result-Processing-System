@@ -1,15 +1,25 @@
 import React, { useState } from 'react'
+import { Navigate } from 'react-router-dom';
 import HeaderSection from '../../components/header'
 import "./style/teacher_login.css"
 
 export default function TeacherLogin() {
     const [loginputs, setLogInputs] = useState({});
+    let [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("isLoggedIn"));
 
     const logHandleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
         setLogInputs(values => ({ ...values, [name]: value }))
     }
+
+    const logHandleSubmit = (event) => {
+        event.preventDefault();
+
+        localStorage.setItem("isLoggedIn", "true");
+        setIsLoggedIn(localStorage.getItem("isLoggedIn"));
+    }
+
     return (
         <div className='Teacher-login-section'>
             <div>
@@ -18,7 +28,7 @@ export default function TeacherLogin() {
 
             <div className='Teacher-login-container'>
                 <p>Teacher Login</p>
-                <form >
+                <form onSubmit={logHandleSubmit}>
                     <input
                         type="text"
                         name='username'
@@ -35,8 +45,8 @@ export default function TeacherLogin() {
                         autoComplete="off"
                         required placeholder="Password" />
                     <button>Log In</button>
-
-                    <a href="#">Forgot your password?</a>
+                    <a href="/recover">Forgot your password?</a>
+                    {isLoggedIn ? <Navigate to='/teacher_workspace' replace /> : <h3> </h3>}
                 </form>
             </div>
         </div>

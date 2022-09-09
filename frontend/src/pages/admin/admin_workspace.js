@@ -1,9 +1,27 @@
 import React from 'react'
+import { AdminNavbar } from '../../components/navbar'
+
+import { faEdit, faFileAlt } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from 'react-router-dom'
 
 export default function AdminWorkspace() {
   return (
     <div>
-       <h3> Admin Workspace </h3>
+      <AdminNavbar />
+      <div className='Workspace-section'>
+
+        <div className='Workspace-container'>
+          <div className='Workspace-heading'>
+            <h3>WORKSPACES</h3>
+          </div>
+          <div className='Workspace-content'>
+            <Link to="/admin_workspace/create_course"><FontAwesomeIcon icon={faEdit} /> Create Course</Link>
+            <Link to="/admin_workspace/assign_course_teacher"><FontAwesomeIcon icon={faEdit} /> Assign Course Teacher</Link>
+            <Link to="/admin_workspace/final_course_report_mark" > <FontAwesomeIcon icon={faFileAlt} /> Course Report (Total Mark)</Link>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

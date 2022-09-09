@@ -1,0 +1,66 @@
+.CourseRegistration-container{
+    box-sizing: border-box;
+    align-items: center;
+    text-align: center;
+    background-color: #fff;
+    border: none;
+    /* border-radius: 4px; */
+    box-shadow: 0 2px 3px rgb(0 0 0 / 14%), 0 0 0 1px rgb(0 0 0 / 7%);
+    box-sizing: border-box;
+    margin: 0 5px;
+    padding: 0 0 28px;
+    
+    position: relative;
+}
+
+.CourseRegistration-heading{
+    background-color: #393939;
+    color: white;
+    border-radius: 4px 4px 0 0;
+    padding: 6px 0;
+    width: 300px;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+    margin-top: 40px;
+}
+.CourseRegistration-heading h3{
+    padding: 0;
+    margin: 0;
+}
+.CourseRegistration-content{
+    background-color: #DFE8F6;
+}
+.CourseRegistration-content-heading{
+    background-color: #B8CFEE;
+    color: black;
+    margin-bottom: 14px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.CourseRegistration-content-body{
+    background-color: #DFE8F6;
+    display: flex;
+    flex-direction: row;
+}
+
+.CourseRegistration-content-body .body1{
+    width: 49%;
+    margin: 5px 10px;
+    background-color: #B8CFEE;
+}
+.CourseRegistration-content-body .body1 .heading{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.CourseRegistration-content-body .body2{
+    width: 49%;
+    margin: 5px 10px;
+    background-color: #B8CFEE;
+}

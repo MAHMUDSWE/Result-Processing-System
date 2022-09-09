@@ -1,0 +1,31 @@
+.Profile-section .Profile-info-container{
+    background-color: #B8CFEE;
+    color: black;
+    border-radius: 4px 4px 0 0;
+    padding: 6px 0;
+    width: 500px;
+    
+    text-align: center;
+    margin: auto;
+    margin-top: 40px;
+    margin-left: 30px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.Profile-section .ChangePassword-container{
+    margin: 10px 30px;
+}
+
+.Profile-section .ChangePassword-container button{
+    background-color: #1877f2;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 5px;
+}
+
+.Profile-section .ChangePassword-container button:hover{
+    background-color: #166FE5;
+}

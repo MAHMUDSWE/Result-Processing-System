@@ -1,0 +1,47 @@
+.Workspace-section .Workspace-container{
+    align-items: center;
+    text-align: center;
+    background-color: #fff;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 2px 3px rgb(0 0 0 / 14%), 0 0 0 1px rgb(0 0 0 / 7%);
+    box-sizing: border-box;
+    margin: auto;
+    padding: 0 0 28px;
+    width: 396px;
+
+    position: relative;
+	margin-top: 40px;
+}
+
+.Workspace-section .Workspace-container .Workspace-heading{
+    background-color: #393939;
+    color: white;
+    border-radius: 4px 4px 0 0;
+    padding: 6px 0;
+}
+.Workspace-section .Workspace-container h3{
+    padding: 0;
+    margin: 0;
+}
+.Workspace-section .Workspace-container .Workspace-content{
+    box-sizing: border-box;
+    align-items: center;
+    text-align: center;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.Workspace-section .Workspace-container .Workspace-content a{
+    text-decoration: none;
+    color: white;
+    background-color: #1976F2;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin: 5px;
+    
+}
+.Workspace-section .Workspace-container .Workspace-content a:hover{
+    background-color: #166FE5;
+}

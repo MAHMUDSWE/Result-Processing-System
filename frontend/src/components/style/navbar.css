@@ -1,0 +1,60 @@
+
+.Navbar-section{
+    box-sizing: border-box;
+    margin: 0 0;
+    padding: 0 5px;
+    background-color: #777;
+    font-size: 1.5rem;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Navbar-section .Logo-container{
+    box-sizing: border-box;
+    width: 450px;
+    margin: 0 10px;
+    text-align: center;
+    align-items: center;
+
+    color: wheat;
+    display: flex;
+    flex-direction: row;
+}
+.Logo-container .Logo-heading{
+    margin-left: 10px;
+    font-family: 'Times New Roman', serif;
+}
+.Navbar-section .nav-container{
+    width: 350px;
+    margin: 0 10px;
+    text-align: center;
+}
+
+.nav-li-link{
+    color: wheat;
+    text-align: center;
+    padding-left: 16px;
+    text-decoration: none;
+}
+
+.activeItem{
+    color: white;
+    text-align: center;
+    padding-left: 16px;
+    text-decoration: none;
+    color: white;
+}
+
+.nav-li-link:hover{
+    color: #222;
+}
+
+.activeItem:hover{
+    color: #222;
+}

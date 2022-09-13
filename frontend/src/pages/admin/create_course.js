@@ -4,7 +4,7 @@ import { AdminNavbar } from '../../components/navbar'
 export default function CreateCourse() {
 
     const [inputs, setInputs] = useState({});
-
+//-------
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;

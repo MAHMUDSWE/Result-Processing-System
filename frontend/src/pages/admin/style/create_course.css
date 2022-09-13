@@ -1,0 +1,78 @@
+.container {
+    align-items: center;
+    text-align: center;
+    background-color: #fff;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 2px 3px rgb(0 0 0 / 14%), 0 0 0 1px rgb(0 0 0 / 7%);
+    box-sizing: border-box;
+    margin: auto;
+    padding: 0 0 28px;
+    width: 50%;
+    height: 500px;
+    position: fixed;
+    position: relative;
+	margin-top: 40px;
+}
+
+.container .createCourse-heading{
+    background-color: #393939;
+    color: white;
+    border-radius: 4px 4px 0 0;
+    padding: 6px 0;
+}
+
+.container .createCourse-heading h3{
+    padding: 0;
+    margin: 0;
+}
+
+.container select{
+    background-color: #fff;
+	border: 1px solid #E7E9EC;
+    border-radius: 6px;
+    font-size: 17px;
+	padding: 14px 16px;
+	margin: 10px;
+	width: 26%;
+    
+    transition: 0.5s;
+    box-sizing: border-box;
+}
+
+.container input{
+    background-color: #fff;
+	border: 1px solid #E7E9EC;
+    border-radius: 6px;
+    font-size: 17px;
+	padding: 14px 16px;
+	margin: 8px 0;
+	width: 50%;
+    outline: none;
+    transition: 0.5s;
+}
+
+.container input:focus {
+    border: 1px solid #1877f2;
+    box-shadow: 0 0 0 2px #e7f3ff;
+    caret-color: #1877f2;
+  }
+
+.container button{
+    border-radius: 20px;
+	border: 1px solid tomato;
+	background-color: tomato;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 30px;
+    margin: 10px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+.container button:hover{
+    cursor: pointer;
+    background-color: rgb(240, 72, 42);
+}

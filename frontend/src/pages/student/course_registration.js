@@ -23,17 +23,30 @@ export default function CourseRegistration() {
                             <div>
                                 <label for='usn'>USN*  </label>
                                 <select name='usn' id='usn'>
-                                    <option value=''></option>
+                                    <option selected value=''></option>
+                                    <option value='2019-1'>2019-1</option>
+                                    <option value='2019-2'>2019-2</option>
+                                    <option value='2020-1'>2020-1</option>
+                                    <option value='2020-2'>2020-2</option>
                                     <option value='2021-1'>2021-1</option>
                                     <option value='2021-2'>2021-2</option>
+                                    <option value='2022-1'>2022-1</option>
+                                    <option value='2022-2'>2022-2</option>
                                 </select>
                             </div>
                             <div>
                                 <label for='semester'>Semester* </label>
                                 <select name='semester' id='semester'>
-                                    <option value=''></option>
+                                    <option selected value=''></option>
+                                    <option value='1'>1st</option>
+                                    <option value='2'>2nd</option>
+                                    <option value='3'>3rd</option>
                                     <option value='4'>4th</option>
                                     <option value='5'>5th</option>
+                                    <option value='6'>6th</option>
+                                    <option value='7'>7th</option>
+                                    <option value='8'>8th</option>
+                                   
                                 </select>
                             </div>
                             <div>
@@ -47,9 +60,15 @@ export default function CourseRegistration() {
                                 <div>
                                     <label for='semester'>Semester* </label>
                                     <select name='semester' id='semester'>
-                                        <option value=''></option>
-                                        <option value='4'>4th</option>
-                                        <option value='5'>5th</option>
+                                    <option selected value=''></option>
+                                    <option value='1'>1st</option>
+                                    <option value='2'>2nd</option>
+                                    <option value='3'>3rd</option>
+                                    <option value='4'>4th</option>
+                                    <option value='5'>5th</option>
+                                    <option value='6'>6th</option>
+                                    <option value='7'>7th</option>
+                                    <option value='8'>8th</option>
                                     </select>
                                 </div>
                                 <div>
@@ -58,6 +77,8 @@ export default function CourseRegistration() {
                                         <option value=''></option>
                                         <option value='2017-18'>2017-2018</option>
                                         <option value='2018-19'>2018-2019</option>
+                                        <option value='2019-2020'>2019-2020</option>
+                                        <option value='2020-2021'>2020-2021</option>
                                     </select>
                                 </div>
                             </div>

@@ -13,6 +13,7 @@ import CourseRegistration from '../pages/student/course_registration'
 import Logout from '../components/logout'
 import StudentProfile from '../pages/student/student_profile'
 import CreateCourse from '../pages/admin/create_course'
+import StudentDetailsEntry from '../pages/admin/studentDetailsEntry'
 
 export default function PageRoutes() {
   return (
@@ -57,6 +58,10 @@ export default function PageRoutes() {
 
           <Route path="/admin_workspace/create_course" element={<ProtectedRoutesAfterLogin>
             <CreateCourse />
+          </ProtectedRoutesAfterLogin>} />
+
+          <Route path="/admin_workspace/student_entry" element={<ProtectedRoutesAfterLogin>
+            <StudentDetailsEntry />
           </ProtectedRoutesAfterLogin>} />
 
           <Route path="/logout" element={<ProtectedRoutesAfterLogin>

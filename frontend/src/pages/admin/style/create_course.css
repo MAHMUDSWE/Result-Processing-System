@@ -1,4 +1,4 @@
-.container {
+.createCourse-container {
     align-items: center;
     text-align: center;
     background-color: #fff;
@@ -9,70 +9,80 @@
     margin: auto;
     padding: 0 0 28px;
     width: 50%;
-    height: 500px;
+    height: 450px;
+    
     position: fixed;
     position: relative;
-	margin-top: 40px;
+    margin-top: 40px;
 }
 
-.container .createCourse-heading{
+.createCourse-container .createCourse-heading {
     background-color: #393939;
     color: white;
     border-radius: 4px 4px 0 0;
     padding: 6px 0;
 }
 
-.container .createCourse-heading h3{
+.createCourse-container .createCourse-heading h3 {
     padding: 0;
     margin: 0;
 }
 
-.container select{
+.createCourse-container select {
     background-color: #fff;
-	border: 1px solid #E7E9EC;
+    border: 1px solid #E7E9EC;
     border-radius: 6px;
     font-size: 17px;
-	padding: 14px 16px;
-	margin: 10px;
-	width: 26%;
-    
+    padding: 14px 16px;
+    margin: 10px;
+    width: 26%;
+    outline: none;
+
     transition: 0.5s;
     box-sizing: border-box;
 }
 
-.container input{
+.createCourse-container select:focus {
+    border: 1px solid #1877f2;
+    box-shadow: 0 0 0 2px #e7f3ff;
+    caret-color: #1877f2;
+}
+
+.createCourse-container input {
     background-color: #fff;
-	border: 1px solid #E7E9EC;
+    border: 1px solid #E7E9EC;
     border-radius: 6px;
     font-size: 17px;
-	padding: 14px 16px;
-	margin: 8px 0;
-	width: 50%;
+    padding: 14px 16px;
+    margin: 8px 0;
+    width: 50%;
+    
     outline: none;
     transition: 0.5s;
 }
 
-.container input:focus {
+.createCourse-container input:focus {
+    background-color: #E8F0FE;
     border: 1px solid #1877f2;
     box-shadow: 0 0 0 2px #e7f3ff;
     caret-color: #1877f2;
-  }
-
-.container button{
-    border-radius: 20px;
-	border: 1px solid tomato;
-	background-color: tomato;
-	color: #FFFFFF;
-	font-size: 12px;
-	font-weight: bold;
-	padding: 12px 30px;
-    margin: 10px;
-	letter-spacing: 1px;
-	text-transform: uppercase;
-	transition: transform 80ms ease-in;
 }
 
-.container button:hover{
+.createCourse-container button {
+    border-radius: 20px;
+    border: 1px solid tomato;
+    background-color: tomato;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 30px;
+    margin: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+
+.createCourse-container button:hover {
     cursor: pointer;
     background-color: rgb(240, 72, 42);
 }

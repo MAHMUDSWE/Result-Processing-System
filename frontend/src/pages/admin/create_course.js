@@ -11,7 +11,7 @@ export default function CreateCourse() {
         const name = event.target.name;
         const value = event.target.value;
         setInputs(values => ({ ...values, [name]: value }));
-        // console.log(value);
+        console.log(value);
     }
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -20,14 +20,14 @@ export default function CreateCourse() {
         axios.post("/createCourse", inputs)
             .then(res => res.data)
             .then(data => {
-                console.log(data.message);
+                alert(data.message);
             })
             .catch(error => {
                 if (error.response.status === 401) {
                     console.log(error.response.data.message);
                 }
                 else {
-                    console.log("Internal Server Error!");
+                    console.log(error);
                 }
             })
     }

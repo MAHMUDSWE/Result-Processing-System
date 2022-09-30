@@ -4,7 +4,7 @@ var db = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database: "project350"
+    database: "result_processing"
 });
 
 db.connect((err) => {

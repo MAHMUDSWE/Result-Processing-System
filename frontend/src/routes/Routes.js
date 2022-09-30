@@ -14,6 +14,9 @@ import Logout from '../components/logout'
 import StudentProfile from '../pages/student/student_profile'
 import CreateCourse from '../pages/admin/create_course'
 import StudentDetailsEntry from '../pages/admin/studentDetailsEntry'
+import TeacherDetailsEntry from '../pages/admin/teacherDetailsEntry'
+import CourseEvaluationEntry from '../pages/teacher/courseEvaluationEntry'
+import FinalMarkEntry from '../pages/teacher/finalMarkEntry'
 
 export default function PageRoutes() {
   return (
@@ -52,6 +55,14 @@ export default function PageRoutes() {
             <TeacherWorkspace />
           </ProtectedRoutesAfterLogin>} />
 
+          <Route path="/teacher_workspace/course_evaluation_mark_entry" element={<ProtectedRoutesAfterLogin>
+            <CourseEvaluationEntry />
+          </ProtectedRoutesAfterLogin>} />
+
+          <Route path="/teacher_workspace/final_mark_entry" element={<ProtectedRoutesAfterLogin>
+            <FinalMarkEntry />
+          </ProtectedRoutesAfterLogin>} />
+
           <Route path="/admin_workspace" element={<ProtectedRoutesAfterLogin>
             <AdminWorkspace />
           </ProtectedRoutesAfterLogin>} />
@@ -62,6 +73,10 @@ export default function PageRoutes() {
 
           <Route path="/admin_workspace/student_entry" element={<ProtectedRoutesAfterLogin>
             <StudentDetailsEntry />
+          </ProtectedRoutesAfterLogin>} />
+
+          <Route path="/admin_workspace/teacher_entry" element={<ProtectedRoutesAfterLogin>
+            <TeacherDetailsEntry />
           </ProtectedRoutesAfterLogin>} />
 
           <Route path="/logout" element={<ProtectedRoutesAfterLogin>

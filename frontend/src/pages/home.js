@@ -14,7 +14,7 @@ export default function HomePage() {
                     target=""
                     rel="noopener noreferrer"
                 >
-                    Admin Login
+                    Administrator Login
                 </a>
                 <a
                     className="Body-link"

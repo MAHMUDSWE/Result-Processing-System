@@ -27,7 +27,7 @@ export default function AdminLogin() {
       </div>
 
       <div className='Admin-login-container'>
-        <p>Admin Login</p>
+        <p>Administrator Login</p>
         <form onSubmit={logHandleSubmit}>
           <input
             type="text"

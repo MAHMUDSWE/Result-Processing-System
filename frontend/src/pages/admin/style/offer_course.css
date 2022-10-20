@@ -1,0 +1,129 @@
+.offerCourse-container {
+    align-items: center;
+    text-align: center;
+    background-color: #B8CFEE;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 2px 3px rgb(0 0 0 / 14%), 0 0 0 1px rgb(0 0 0 / 7%);
+    box-sizing: border-box;
+    margin: auto;
+    padding: 0 0 28px;
+    width: 50%;
+
+    
+    position: fixed;
+    position: relative;
+    margin-top: 40px;
+}
+
+.offerCourse-container .offerCourse-heading {
+    background-color: #393939;
+    color: white;
+    border-radius: 4px 4px 0 0;
+    padding: 6px 0;
+}
+
+.offerCourse-container .offerCourse-heading h3 {
+    padding: 0;
+    margin: 0;
+}
+
+.offerCourse-container select {
+    background-color: #fff;
+    border: 1px solid #E7E9EC;
+    border-radius: 6px;
+    font-size: 17px;
+    padding: 14px 16px;
+    margin: 10px;
+    width: 26%;
+    outline: none;
+
+    transition: 0.5s;
+    box-sizing: border-box;
+}
+
+.offerCourse-container select:focus {
+    border: 1px solid #1877f2;
+    box-shadow: 0 0 0 2px #e7f3ff;
+    caret-color: #1877f2;
+}
+
+.offerCourse-container input {
+    background-color: #fff;
+    border: 1px solid #E7E9EC;
+    border-radius: 6px;
+    font-size: 17px;
+    padding: 14px 16px;
+    margin: 8px 0;
+    width: 50%;
+    
+    outline: none;
+    transition: 0.5s;
+}
+
+.offerCourse-container input:focus {
+    background-color: #E8F0FE;
+    border: 1px solid #1877f2;
+    box-shadow: 0 0 0 2px #e7f3ff;
+    caret-color: #1877f2;
+}
+
+.offerCourse-container button {
+    border-radius: 20px;
+    border: 1px solid tomato;
+    background-color: tomato;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 30px;
+    margin: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+
+.offerCourse-container button:hover {
+    cursor: pointer;
+    background-color: rgb(240, 72, 42);
+}
+
+.offerCourse-container .course_id input{
+      background-color: #fff;
+      border: 1px solid #E7E9EC;
+      border-radius: 6px;
+      font-size: 17px;
+      padding: 14px 16px;
+      margin: 8px 0;
+      width: 40%;
+      
+      outline: none;
+      transition: 0.5s;
+}
+
+.offerCourse-container .course_id button{
+    border-radius: 20px;
+    border: 1px solid blue;
+    background-color: blue;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 30px;
+    margin: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+
+.offerCourse-container .removeCourseId button{
+    border-radius: 20px;
+    border: 1px solid red;
+    background-color: red;
+    color: #FFFFFF;
+    font-size: 8px;
+    font-weight: bold;
+    padding: 8px 20px;
+    margin: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}

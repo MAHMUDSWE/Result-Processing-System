@@ -5,6 +5,8 @@ const cors = require("cors");
 const app = express();
 
 const adminRoute = require("./routes/admin.route");
+const studentRoute = require("./routes/student.route");
+const teacherRoute = require("./routes/teacher.route");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -12,6 +14,8 @@ app.use(cors());
 
 
 app.use(adminRoute);
+app.use(studentRoute);
+app.use(teacherRoute);
 
 app.use((req, res, next) => {
     res.status(404).json({

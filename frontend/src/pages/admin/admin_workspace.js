@@ -17,6 +17,7 @@ export default function AdminWorkspace() {
           </div>
           <div className='Workspace-content'>
             <Link to="/admin_workspace/create_course"><FontAwesomeIcon icon={faEdit} /> Create Course</Link>
+            <Link to="/admin_workspace/offer_course"><FontAwesomeIcon icon={faEdit} /> Offer Course</Link>
             <Link to="/admin_workspace/student_entry"><FontAwesomeIcon icon={faEdit} /> Student Details Entry</Link>
             <Link to="/admin_workspace/teacher_entry"><FontAwesomeIcon icon={faEdit} /> Teacher Details Entry</Link>
             <Link to="/admin_workspace/assign_course_teacher"><FontAwesomeIcon icon={faEdit} /> Assign Course Teacher</Link>

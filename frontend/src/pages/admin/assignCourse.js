@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { AdminNavbar } from '../../components/navbar'
-import './style/create_course.css'
+import './style/assign_course.css'
 
-export default function CreateCourse() {
+export default function AssignCourse() {
 
     const [inputs, setInputs] = useState({});
     const [open, setOpen] = useState(false);
@@ -20,7 +20,8 @@ export default function CreateCourse() {
         event.preventDefault();
         console.log(inputs);
 
-        axios.post("/createCourse", inputs)
+
+        axios.post("/assignCourse", inputs)
             .then(res => res.data)
             .then(data => {
                 console.log(data);
@@ -30,12 +31,13 @@ export default function CreateCourse() {
             })
             .catch(error => {
                 if (error.response.status === 401) {
-                    // console.log(error.response.data.message);
+                    console.log(error.response);
+
                     setMessage(error);
                     setOpen(true);
                 }
                 else if (error.response.status === 400) {
-                    // console.log(error.response.data.message);
+                    console.log(error.response.data);
                     setMessage(error.response.data.message);
                     setStatusCode(400);
                     setOpen(true);
@@ -54,7 +56,7 @@ export default function CreateCourse() {
 
             <div className='createCourse-container'>
                 <div className='createCourse-heading'>
-                    <h3>Create Courses</h3>
+                    <h3>Assign Courses</h3>
                 </div>
                 {open ?
                     <div>
@@ -70,9 +72,20 @@ export default function CreateCourse() {
                                 }
                             }}
                         >
-                            Create Course</button>
+                            Assign Course Teacher</button>
                     </div>
                     : <form onSubmit={handleSubmit}>
+                        <div>
+                            <input
+                                type="text"
+                                name="teacher_id"
+                                value={inputs.teacher_id || ""}
+                                onChange={handleChange}
+                                autoComplete="off"
+                                required pattern="[a-z A-Z 0-9]+"
+                                placeholder="teacher id"
+                            />
+                        </div>
                         <div>
                             <input
                                 type="text"
@@ -80,56 +93,45 @@ export default function CreateCourse() {
                                 value={inputs.course_id || ""}
                                 onChange={handleChange}
                                 autoComplete="off"
-                                required pattern="[a-z A-Z 0-9]+"
+                                required
                                 placeholder="course id"
-                            />
-                        </div>
-                        <div>
-                            <input
-                                type="text"
-                                name="course_title"
-                                value={inputs.course_title || ""}
-                                onChange={handleChange}
-                                autoComplete="off"
-                                required
-                                placeholder="course title"
 
                             />
                         </div>
-                        <div>
-                            <input
-                                type="text"
-                                name="dept_id"
-                                value={inputs.dept_id || ""}
-                                onChange={handleChange}
-                                autoComplete="off"
-                                required
-                                placeholder="department id"
-
-                            />
-                        </div>
-                        <div>
-                            <input
-                                type="numeric"
-                                name="course_credits"
-                                value={inputs.course_credits || ""}
-                                onChange={handleChange}
-                                autoComplete="off"
-                                required
-                                placeholder="course credits"
-
-                            />
-                        </div>
-                        <div>
-                            <select name='course_type' required onChange={handleChange}>
-                                <option value="" >Course Type</option>
-                                <option value="Theory">Theory</option>
-                                <option value="Lab">Lab</option>
+                        <div className='selectInAssign'>
+                            <select name='usn' required onChange={handleChange}>
+                                <option selected value=''>USN</option>
+                                <option value='2019-1'>2019-1</option>
+                                <option value='2019-2'>2019-2</option>
+                                <option value='2020-1'>2020-1</option>
+                                <option value='2020-2'>2020-2</option>
+                                <option value='2021-1'>2021-1</option>
+                                <option value='2021-2'>2021-2</option>
+                                <option value='2022-1'>2022-1</option>
+                                <option value='2022-2'>2022-2</option>
                             </select>
-                            <select name='course_isMajor' required onChange={handleChange}>
-                                <option value="" >Major Or Non-Major</option>
-                                <option value="Major">Major</option>
-                                <option value="Non-Major">Non-Major</option>
+                        </div>
+                        <div>
+                            <select name="semester" required onChange={handleChange}>
+                                <option selected value=''>Semester</option>
+                                <option value='1st'>1st</option>
+                                <option value='2nd'>2nd</option>
+                                <option value='3rd'>3rd</option>
+                                <option value='4th'>4th</option>
+                                <option value='5th'>5th</option>
+                                <option value='6th'>6th</option>
+                                <option value='7th'>7th</option>
+                                <option value='8th'>8th</option>
+                            </select>
+                            <select name='session' required onChange={handleChange}>
+                                <option selected value=''>Session</option>
+                                <option value='2016-2017'>2016-2017</option>
+                                <option value='2017-2018'>2017-2018</option>
+                                <option value='2018-2019'>2018-2019</option>
+                                <option value='2019-2020'>2019-2020</option>
+                                <option value='2020-2021'>2020-2021</option>
+                                <option value='2021-2022'>2021-2022</option>
+
                             </select>
                         </div>
                         <button>Submit</button>

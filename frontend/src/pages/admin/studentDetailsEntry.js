@@ -20,6 +20,7 @@ export default function StudentDetailsEntry() {
         axios.post("/studentDetailsEntry", inputs)
             .then(res => res.data)
             .then(data => {
+                alert(data.message);
                 console.log(data.message);
             })
             .catch(error => {
@@ -29,7 +30,14 @@ export default function StudentDetailsEntry() {
                 // else {
                 //     console.log("Internal Server Error!");
                 // }
-                console.log(error.response.data.message);
+                if (error.response.data.err.code === 'ER_DUP_ENTRY') {
+                    alert(error.response.data.err.sqlMessage);
+                }
+                else {
+                    alert(error.response.data.message);
+                    console.log(error.response);
+                }
+
             })
     }
 

@@ -17,9 +17,10 @@ export default function TeacherDetailsEntry() {
         event.preventDefault();
         console.log(inputs);
 
-        axios.post("/studentDetailsEntry", inputs)
+        axios.post("/teacherDetailsEntry", inputs)
             .then(res => res.data)
             .then(data => {
+                alert(data.message);
                 console.log(data.message);
             })
             .catch(error => {
@@ -29,7 +30,13 @@ export default function TeacherDetailsEntry() {
                 // else {
                 //     console.log("Internal Server Error!");
                 // }
-                console.log(error.response.data.message);
+                if (error.response.data.err.code === 'ER_DUP_ENTRY') {
+                    alert(error.response.data.err.sqlMessage);
+                }
+                else {
+                    alert(error.response.data.message);
+                    console.log(error.response);
+                }
             })
     }
 
@@ -45,8 +52,8 @@ export default function TeacherDetailsEntry() {
                     <div>
                         <input
                             type="text"
-                            name="reg_no"
-                            value={inputs.reg_no || ""}
+                            name="teacher_id"
+                            value={inputs.teacher_id || ""}
                             onChange={handleChange}
                             autoComplete="off"
                             required pattern="[0-9]+"
@@ -56,8 +63,8 @@ export default function TeacherDetailsEntry() {
                     <div>
                         <input
                             type="text"
-                            name="std_name"
-                            value={inputs.std_name || ""}
+                            name="teacher_name"
+                            value={inputs.teacher_name || ""}
                             onChange={handleChange}
                             autoComplete="off"
                             required
@@ -80,8 +87,8 @@ export default function TeacherDetailsEntry() {
                     <div>
                         <input
                             type="email"
-                            name="std_email"
-                            value={inputs.std_email || ""}
+                            name="teacher_email"
+                            value={inputs.teacher_email || ""}
                             onChange={handleChange}
                             autoComplete="off"
                             required
@@ -92,20 +99,20 @@ export default function TeacherDetailsEntry() {
                     <div>
                         <input
                             type="text"
-                            name="std_phone"
-                            value={inputs.std_phone || ""}
+                            name="teacher_phone"
+                            value={inputs.teacher_phone || ""}
                             onChange={handleChange}
                             autoComplete="off"
                             required pattern="[0-9]+"
                             placeholder="phone no"
                         />
                     </div>
-                    <div>
+                    {/* <div>
                         <input
                             type="text"
                             id='std_address'
                             name="std_address"
-                            value={inputs.std_address || ""}
+                            value={inputs.teacher_address || ""}
                             onChange={handleChange}
                             autoComplete="off"
                             required
@@ -115,12 +122,12 @@ export default function TeacherDetailsEntry() {
                         <input
                             type="date"
                             name="std_dateOfBirth"
-                            value={inputs.std_dateOfBirth || ""}
+                            value={inputs.teacher_dateOfBirth || ""}
                             onChange={handleChange}
                             autoComplete="off"
                             required
                         />
-                    </div>
+                    </div> */}
                     <button>Submit</button>
                 </form>
             </div>

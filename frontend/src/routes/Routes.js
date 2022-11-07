@@ -18,6 +18,7 @@ import TeacherDetailsEntry from '../pages/admin/teacherDetailsEntry'
 import CourseEvaluationEntry from '../pages/teacher/courseEvaluationEntry'
 import FinalMarkEntry from '../pages/teacher/finalMarkEntry'
 import OfferCourse from '../pages/admin/offer_course'
+import AssignCourse from '../pages/admin/assignCourse'
 
 export default function PageRoutes() {
   return (
@@ -74,6 +75,10 @@ export default function PageRoutes() {
 
           <Route path="/admin_workspace/offer_course" element={<ProtectedRoutesAfterLogin>
             <OfferCourse />
+          </ProtectedRoutesAfterLogin>} />
+
+          <Route path="/admin_workspace/assign_course_teacher" element={<ProtectedRoutesAfterLogin>
+            <AssignCourse />
           </ProtectedRoutesAfterLogin>} />
 
           <Route path="/admin_workspace/student_entry" element={<ProtectedRoutesAfterLogin>

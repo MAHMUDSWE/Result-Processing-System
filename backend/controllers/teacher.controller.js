@@ -2,9 +2,9 @@ const db = require('../models/project350.model');
 
 const getAssignedCourseList = (req, res) => {
 
-    var { teacher_id, USN, semester } = req.body;
+    var { teacher_id, USN, semester } = req.query;
 
-    var query = "SELECT course_id, course_title, semester, session FROM tbl_teach NATURAL JOIN tbl_course WHERE teacher_id = ? AND USN = ? AND semester = ? ";
+    var query = "SELECT course_id, course_title, course_type, semester, session FROM tbl_teach NATURAL JOIN tbl_course WHERE teacher_id = ? AND USN = ? AND semester = ? ";
 
     db.query(query, [teacher_id, USN, semester], (err, rows, fields) => {
         if (!err) {
@@ -24,9 +24,9 @@ const getAssignedCourseList = (req, res) => {
 }
 
 const getTakenCourseStudentList = (req, res) => {
-    var { course_id, semester, session } = req.body;
+    var { course_id, semester, session } = req.query;
 
-    var query = "SELECT reg_no, course_id, semester, session, USN FROM tbl_takes WHERE course_id = ? AND semester = ? AND session = ? ";
+    var query = "SELECT reg_no, std_name, course_id, semester, session, USN FROM tbl_takes natural join tbl_student WHERE course_id = ? AND semester = ? AND session = ? ";
 
     db.query(query, [course_id, semester, session], (err, rows, fields) => {
         if (!err) {
@@ -46,22 +46,26 @@ const getTakenCourseStudentList = (req, res) => {
 
 const postCourseEvaluationMarkEntry = (req, res) => {
 
-    var { inputs, semester, session, USN } = req.body;
+    var { inputs, teacher_id, total_class } = req.body;
 
     var values = [];
-
     inputs.map((item) => {
-        values.push(Object.values({ ...item, semester, session, USN }));
+        var { reg_no, course_id, class_attendance, term_test, class_assessment, semester, session, USN } = item;
+        values.push(Object.values({
+            reg_no,
+            course_id,
+            first_teacher_id: teacher_id,
+            total_class: total_class,
+            class_attendance, term_test, class_assessment, semester, session, USN
+        }));
     })
 
-    // res.send(values);
-
-    var query = "INSERT INTO tbl_result_theory(reg_no, course_id, first_teacher_id, class_attendance, term_test, class_assessment, semester, session, USN) VALUES ?";
+    var query = "INSERT INTO tbl_result_theory(reg_no, course_id, first_teacher_id, total_class, class_attendance, term_test, class_assessment, semester, session, USN) VALUES ?";
 
     db.query(query, [values], (err, rows, fields) => {
         if (!err) {
             res.status(200).json({
-                "success": `Course evaluation mark for course ${inputs[0].course_id} is added`,
+                "message": `Course evaluation mark for course ${inputs[0].course_id} is added`,
                 rows,
             });
         }
@@ -77,22 +81,28 @@ const postCourseEvaluationMarkEntry = (req, res) => {
 
 const postLabFinalMarkEntry = (req, res) => {
 
-    var { inputs, semester, session, USN } = req.body;
+    var { inputs, teacher_id } = req.body;
 
     var values = [];
 
     inputs.map((item) => {
-        values.push(Object.values({ ...item, semester, session, USN }));
+        var { reg_no, course_id, total_mark, semester, session, USN } = item;
+        values.push(Object.values({
+            reg_no,
+            course_id,
+            first_teacher_id: teacher_id,
+            total_mark,
+            semester, session, USN
+        }));
     })
 
     // res.send(values);
-
     var query = "INSERT INTO tbl_result_lab(reg_no, course_id, first_teacher_id, total_mark, semester, session, USN) VALUES ?";
 
     db.query(query, [values], (err, rows, fields) => {
         if (!err) {
             res.status(200).json({
-                "success": `Lab final mark for course ${inputs[0].course_id} is added`,
+                "message": `Lab final mark for course ${inputs[0].course_id} is added`,
                 rows,
             });
         }
@@ -108,22 +118,24 @@ const postLabFinalMarkEntry = (req, res) => {
 
 const putPartAMark = (req, res) => {
 
-    var { inputs, semester, session, USN } = req.body;
+    var { inputs, teacher_id } = req.body;
 
     var values = [];
     let queires = '';
 
     inputs.map((item) => {
-        values.push({ ...item, semester, session, USN });
+        values.push({ ...item, teacher_id });
     })
+
+    // res.send(values);
     values.map((item) => {
-        queires += `UPDATE tbl_result_theory SET part_A = ${item.part_A} WHERE reg_no = "${item.reg_no}" and course_id = "${item.course_id}" and semester = "${item.semester}" and session = "${item.session}"; `;
+        queires += `UPDATE tbl_result_theory SET part_A = ${item.part} WHERE reg_no = "${item.reg_no}" and course_id = "${item.course_id}" and semester = "${item.semester}" and session = "${item.session}"; `;
     })
 
     db.query(queires, (err, rows, fields) => {
         if (!err) {
             res.status(200).json({
-                "success": `Part A mark for course ${inputs[0].course_id} is added`,
+                "message": `Part A mark for course ${inputs[0].course_id} is added`,
                 rows,
             });
         }
@@ -138,16 +150,16 @@ const putPartAMark = (req, res) => {
 
 const putPartBMark = (req, res) => {
 
-    var { inputs, semester, session, USN } = req.body;
+    var { inputs, teacher_id } = req.body;
 
     var values = [];
     let queires = '';
 
     inputs.map((item) => {
-        values.push({ ...item, semester, session, USN });
+        values.push({ ...item, second_teacher_id: teacher_id });
     })
     values.map((item) => {
-        queires += `UPDATE tbl_result_theory SET part_B = ${item.part_B}, second_teacher_id = ${item.second_teacher_id} WHERE reg_no = "${item.reg_no}" and course_id = "${item.course_id}" and semester = "${item.semester}" and session = "${item.session}"; `;
+        queires += `UPDATE tbl_result_theory SET part_B = ${item.part}, second_teacher_id = ${item.second_teacher_id} WHERE reg_no = "${item.reg_no}" and course_id = "${item.course_id}" and semester = "${item.semester}" and session = "${item.session}"; `;
     })
 
     db.query(queires, (err, rows, fields) => {

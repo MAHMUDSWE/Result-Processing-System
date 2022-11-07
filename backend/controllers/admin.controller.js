@@ -26,20 +26,20 @@ const postCreateDepartment = (req, res) => {
 
 const postCreateCourse = (req, res) => {
 
-    var { values } = req.body;
+    var values = Object.values(req.body);
 
-    var query = "insert into tbl_course values ? ";
+    var query = "insert into tbl_course values (?) ";
 
     db.query(query, [values], (err, result) => {
         if (!err) {
             res.status(200).json({
-                "message": `${result.affectedRows} course inserted successfully`,
+                "message": `Course ${req.body.course_id} added successfully`,
                 result
             })
         }
         else {
             res.status(400).json({
-                "message": "Course insert failed",
+                "message": "Course create failed",
                 err
             })
         }
@@ -96,7 +96,7 @@ const postOfferCourse = (req, res) => {
     var values = [];
 
     input.course_id.map((item) => {
-        values.push([input.dept_id, item, input.semester, input.session, input.USN, input.year]);
+        values.push([input.dept_id, item, input.semester, input.session, input.usn, input.year]);
     })
 
     // console.log(values);
@@ -127,14 +127,17 @@ const postOfferCourse = (req, res) => {
 
 const assignCourseTeacher = (req, res) => {
     var input = req.body;
-    var values = [];
+    input = {
+        teacher_id: input.teacher_id,
+        course_id: input.course_id,
+        semester: input.semester,
+        session: input.session,
+        usn: input.usn
+    }
+    var values = Object.values(input);
 
-    input.course_list.map((course) => {
-        values.push([input.teacher_id, course.course_id, course.semester, course.session, course.USN]);
-    })
-
-    var query = "insert into tbl_teach values ?";
-
+    var query = "insert into tbl_teach values (?)";
+    console.log(values);
     db.query(query, [values], (err, result) => {
         if (!err) {
             res.status(200).json({
@@ -144,7 +147,7 @@ const assignCourseTeacher = (req, res) => {
         }
         else {
             res.status(400).json({
-                "message": "course teacher assign failed failed",
+                "message": "course teacher assign failed",
                 err
             })
         }

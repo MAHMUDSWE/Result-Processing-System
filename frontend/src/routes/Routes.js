@@ -19,6 +19,8 @@ import CourseEvaluationEntry from '../pages/teacher/courseEvaluationEntry'
 import FinalMarkEntry from '../pages/teacher/finalMarkEntry'
 import OfferCourse from '../pages/admin/offer_course'
 import AssignCourse from '../pages/admin/assignCourse'
+import CourseReportTotalMark from '../pages/teacher/course_report_total_mark'
+import CourseReportGrade from '../pages/teacher/course_report_grade_letter'
 
 export default function PageRoutes() {
   return (
@@ -63,6 +65,14 @@ export default function PageRoutes() {
 
           <Route path="/teacher_workspace/final_mark_entry" element={<ProtectedRoutesAfterLogin>
             <FinalMarkEntry />
+          </ProtectedRoutesAfterLogin>} />
+
+          <Route path='/teacher_workspace/final_course_report_mark' element={<ProtectedRoutesAfterLogin>
+            <CourseReportTotalMark />
+          </ProtectedRoutesAfterLogin>} />
+
+          <Route path='/teacher_workspace/final_course_report_grade' element={<ProtectedRoutesAfterLogin>
+            <CourseReportGrade />
           </ProtectedRoutesAfterLogin>} />
 
           <Route path="/admin_workspace" element={<ProtectedRoutesAfterLogin>

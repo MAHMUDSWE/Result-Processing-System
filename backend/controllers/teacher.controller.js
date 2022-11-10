@@ -4,7 +4,7 @@ const getAssignedCourseList = (req, res) => {
 
     var { teacher_id, USN, semester } = req.query;
 
-    var query = "SELECT course_id, course_title, course_type, semester, session FROM tbl_teach NATURAL JOIN tbl_course WHERE teacher_id = ? AND USN = ? AND semester = ? ";
+    var query = "SELECT course_id, course_title, course_type, semester, session, part FROM tbl_teach NATURAL JOIN tbl_course WHERE teacher_id = ? AND USN = ? AND semester = ? ";
 
     db.query(query, [teacher_id, USN, semester], (err, rows, fields) => {
         if (!err) {
@@ -60,22 +60,37 @@ const postCourseEvaluationMarkEntry = (req, res) => {
         }));
     })
 
-    var query = "INSERT INTO tbl_result_theory(reg_no, course_id, first_teacher_id, total_class, class_attendance, term_test, class_assessment, semester, session, USN) VALUES ?";
+    var { course_id, semester, session, USN } = inputs[0];
+    var queryTest = 'SELECT COUNT(*) as "count" FROM tbl_teach WHERE course_id = ? AND teacher_id = ? AND part = "A" AND semester = ? AND session = ? AND USN = ? ';
 
-    db.query(query, [values], (err, rows, fields) => {
-        if (!err) {
-            res.status(200).json({
-                "message": `Course evaluation mark for course ${inputs[0].course_id} is added`,
-                rows,
-            });
+    db.query(queryTest, [course_id, teacher_id, semester, session, USN], (err, rows) => {
+        if (!err && rows[0].count == 1) {
+            var query = "INSERT INTO tbl_result_theory(reg_no, course_id, first_teacher_id, total_class, class_attendance, term_test, class_assessment, semester, session, USN) VALUES ?";
+
+            db.query(query, [values], (err, rows, fields) => {
+                if (!err) {
+                    res.status(200).json({
+                        "message": `Course evaluation mark for course ${inputs[0].course_id} is added`,
+                        rows,
+                    });
+                }
+                else {
+                    res.status(400).json({
+                        "message": "Request failed",
+                        err,
+                    });
+                }
+            })
         }
         else {
-            res.status(400).json({
-                "message": "Request failed",
-                err,
-            });
+            res.status(401).json({
+                "message": "Not Authorized",
+                err
+            })
         }
     })
+
+
 }
 
 
@@ -127,25 +142,41 @@ const putPartAMark = (req, res) => {
         values.push({ ...item, teacher_id });
     })
 
-    // res.send(values);
-    values.map((item) => {
-        queires += `UPDATE tbl_result_theory SET part_A = ${item.part} WHERE reg_no = "${item.reg_no}" and course_id = "${item.course_id}" and semester = "${item.semester}" and session = "${item.session}"; `;
-    })
 
-    db.query(queires, (err, rows, fields) => {
-        if (!err) {
-            res.status(200).json({
-                "message": `Part A mark for course ${inputs[0].course_id} is added`,
-                rows,
-            });
+    var { course_id, semester, session, USN } = inputs[0];
+
+    var queryTest = 'SELECT count(*) as "count" FROM tbl_teach WHERE course_id = ? AND teacher_id = ? AND part = ? AND semester = ? AND session = ? AND USN = ? ';
+
+    db.query(queryTest, [course_id, teacher_id, "A", semester, session, USN], (err, rows) => {
+
+        if (!err && rows[0].count === 1) {
+            values.map((item) => {
+                queires += `UPDATE tbl_result_theory SET part_A = ${item.part} WHERE reg_no = "${item.reg_no}" and course_id = "${item.course_id}" and semester = "${item.semester}" and session = "${item.session}"; `;
+            })
+
+            db.query(queires, (err, rows, fields) => {
+                if (!err) {
+                    res.status(200).json({
+                        "message": `Part A mark for course ${inputs[0].course_id} is added`,
+                        rows,
+                    });
+                }
+                else {
+                    res.status(400).json({
+                        "message": "Part A mark add failed",
+                        err,
+                    });
+                }
+            })
         }
         else {
-            res.status(400).json({
-                "message": "Part A mark add failed",
-                err,
-            });
+            res.status(401).json({
+                "message": "Not Authorized",
+                err
+            })
         }
     })
+
 }
 
 const putPartBMark = (req, res) => {
@@ -158,24 +189,42 @@ const putPartBMark = (req, res) => {
     inputs.map((item) => {
         values.push({ ...item, second_teacher_id: teacher_id });
     })
-    values.map((item) => {
-        queires += `UPDATE tbl_result_theory SET part_B = ${item.part}, second_teacher_id = ${item.second_teacher_id} WHERE reg_no = "${item.reg_no}" and course_id = "${item.course_id}" and semester = "${item.semester}" and session = "${item.session}"; `;
-    })
 
-    db.query(queires, (err, rows, fields) => {
-        if (!err) {
-            res.status(200).json({
-                "success": `Part B mark for course ${inputs[0].course_id} is added`,
-                rows,
-            });
+
+    var { course_id, semester, session, USN } = inputs[0];
+
+    var queryTest = 'SELECT count(*) as "count" FROM tbl_teach WHERE course_id = ? AND teacher_id = ? AND part = ? AND semester = ? AND session = ? AND USN = ? ';
+
+    db.query(queryTest, [course_id, teacher_id, "B", semester, session, USN], (err, rows) => {
+
+        if (!err && rows[0].count === 1) {
+            values.map((item) => {
+                queires += `UPDATE tbl_result_theory SET part_B = ${item.part}, second_teacher_id = ${item.second_teacher_id} WHERE reg_no = "${item.reg_no}" and course_id = "${item.course_id}" and semester = "${item.semester}" and session = "${item.session}"; `;
+            })
+
+            db.query(queires, (err, rows, fields) => {
+                if (!err) {
+                    res.status(200).json({
+                        "message": `Part B mark for course ${inputs[0].course_id} is added`,
+                        rows,
+                    });
+                }
+                else {
+                    res.status(400).json({
+                        "message": "Part B mark add failed",
+                        err,
+                    });
+                }
+            })
         }
         else {
-            res.status(400).json({
-                "message": "Part B mark add failed",
-                err,
-            });
+            res.status(401).json({
+                "message": "Not Authorized",
+                err
+            })
         }
     })
+
 }
 
 const getCourseWiseAttendaceAndEvaluation = (req, res) => {
@@ -253,3 +302,7 @@ module.exports = {
     getLabCourseFinalMarkList,
     getTheoryCourseFinalMarkList
 }
+
+
+
+

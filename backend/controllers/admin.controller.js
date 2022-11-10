@@ -132,16 +132,24 @@ const assignCourseTeacher = (req, res) => {
         course_id: input.course_id,
         semester: input.semester,
         session: input.session,
-        usn: input.usn
+        usn: input.usn,
+        part: input.part,
     }
     var values = Object.values(input);
 
     var query = "insert into tbl_teach values (?)";
+    let message = '';
+    if (input.part === 'A') {
+        message = "Course teacher assign successful"
+    }
+    else {
+        message = "Second teacher assign successful"
+    }
     console.log(values);
     db.query(query, [values], (err, result) => {
         if (!err) {
             res.status(200).json({
-                "message": "Course teacher assign successful",
+                "message": message,
                 result
             })
         }

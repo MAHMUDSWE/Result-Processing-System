@@ -99,6 +99,12 @@ export default function AssignCourse() {
                             />
                         </div>
                         <div className='selectInAssign'>
+
+                            <select name='part' required onChange={handleChange}>
+                                <option selected value=''>Role</option>
+                                <option value='A'>Course Teacher</option>
+                                <option value='B'>Second Teacher</option>
+                            </select>
                             <select name='usn' required onChange={handleChange}>
                                 <option selected value=''>USN</option>
                                 <option value='2019-1'>2019-1</option>

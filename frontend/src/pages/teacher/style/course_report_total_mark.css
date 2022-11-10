@@ -107,6 +107,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: flex-start;
 }
 
 .CourseEvaluationEntry-container .ChangePassword-container {
@@ -136,6 +137,16 @@
     text-align: center;
     padding: 8px;
 }
+
+.table2{
+    width: 100%;
+}
+/* .table2 td,
+.table2 th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+} */
 
 .table1 tr:nth-child(even) {
     background-color: #dddddd;

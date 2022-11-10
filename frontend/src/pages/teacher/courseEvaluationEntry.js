@@ -211,7 +211,7 @@ export default function CourseEvaluationEntry() {
             </div>
 
             <form onSubmit={postCourseEvaluationMarkEntry}>
-              <table>
+              <table className="table1">
                 <thead>
                   <tr>
                     <th>SL</th>

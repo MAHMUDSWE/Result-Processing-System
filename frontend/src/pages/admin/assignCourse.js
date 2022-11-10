@@ -38,9 +38,15 @@ export default function AssignCourse() {
                 }
                 else if (error.response.status === 400) {
                     console.log(error.response.data);
-                    setMessage(error.response.data.message);
+                    if (error.response.data.err.code === 'ER_DUP_ENTRY') {
+                        setMessage(`Course teacher for course ${inputs.course_id} is already assigned`);
+                    }
+                    else {
+                        setMessage(error.response.data.message);
+                    }
                     setStatusCode(400);
                     setOpen(true);
+
                 }
                 else {
                     // console.log(error.response.data);
@@ -99,6 +105,11 @@ export default function AssignCourse() {
                             />
                         </div>
                         <div className='selectInAssign'>
+                            <select name='part' required onChange={handleChange}>
+                                <option selected value=''>Role</option>
+                                <option value='A'>Course Teacher</option>
+                                <option value='B'>Second Teacher</option>
+                            </select>
                             <select name='usn' required onChange={handleChange}>
                                 <option selected value=''>USN</option>
                                 <option value='2019-1'>2019-1</option>

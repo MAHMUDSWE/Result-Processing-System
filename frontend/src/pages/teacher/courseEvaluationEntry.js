@@ -48,9 +48,21 @@ export default function CourseEvaluationEntry() {
 
     // setMarkInput((values) => ({ ...values, [name]: value }));
     const { name, value } = event.target;
-    const list = [...listOfStudent];
-    list[key][name] = value;
-    setListOfStudent(list);
+
+    if (name === 'term_test' && (value > 20 || value < 0)) {
+      alert("Value must be between 0-20");
+    }
+    else if (name === 'class_assessment' && (value > 10 || value < 0)) {
+      alert("Value must be between 0-10");
+    }
+    else if (name === 'class_attendance' && (value > Number(totalClass) || value < 0)) {
+      alert(`Value must be between 0-${totalClass}.`);
+    }
+    else {
+      const list = [...listOfStudent];
+      list[key][name] = value;
+      setListOfStudent(list);
+    }
   }
 
   const handleChangeTotalClass = (event) => {
@@ -68,7 +80,7 @@ export default function CourseEvaluationEntry() {
     axios.get("/assignedCourse", {
       params: {
         ...inputs,
-        teacher_id: 2
+        teacher_id: 1
       }
     })
       .then((res) => res.data)
@@ -77,7 +89,7 @@ export default function CourseEvaluationEntry() {
           alert("Course not found!")
         }
         else {
-          data.rows.map((item) => {
+          data.rows.filter((values) => values.part !== 'B').map((item) => {
             return listOfAssignedCourses.push(item)
           })
           setListOfAssignedCourses(listOfAssignedCourses);
@@ -155,9 +167,13 @@ export default function CourseEvaluationEntry() {
     //   total_class: totalClass
     // });
 
+    if (!window.confirm("Are you sure to submit?")) {
+      return;
+    }
+
     axios.post("/courseEvaluationMarkEntry", {
       inputs: [...listOfStudent],
-      teacher_id: 2,
+      teacher_id: 1,
       total_class: totalClass
     })
       .then(res => res.data)

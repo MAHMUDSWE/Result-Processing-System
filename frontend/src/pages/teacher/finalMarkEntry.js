@@ -22,9 +22,9 @@ export default function CourseEvaluationEntry() {
 
   const [listOfStudent, setListOfStudent] = useState([{}]);
 
-  const [part, setPart] = useState('part_B');
+  const [part, setPart] = useState('');
 
-  const [endPoint, setEndPoint] = useState('partBMarkEntry');
+  const [endPoint, setEndPoint] = useState('');
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -39,10 +39,21 @@ export default function CourseEvaluationEntry() {
   }
 
   const handleChangeMark = (event, key) => {
+
     const { name, value } = event.target;
-    const list = [...listOfStudent];
-    list[key][name] = value;
-    setListOfStudent(list);
+
+    if (name === 'part' && (value > 30 || value < 0)) {
+      alert("Value must be between 0-30");
+    }
+
+    else if (name === 'total_mark' && (value > 100 || value < 0)) {
+      alert("Value must be between 0-100");
+    }
+    else {
+      const list = [...listOfStudent];
+      list[key][name] = value;
+      setListOfStudent(list);
+    }
   }
 
   const getAssignedCourseList = (event) => {
@@ -89,7 +100,7 @@ export default function CourseEvaluationEntry() {
     listOfStudent.splice(0, listOfStudent.length);
     setListOfStudent([{}]);
 
-    var { course_id, course_type, semester, session } = inputCourse;
+    var { course_id, course_type, semester, session, part } = inputCourse;
 
     axios.get("/takenCourse", {
       params: {
@@ -109,7 +120,7 @@ export default function CourseEvaluationEntry() {
                 total_mark: '',
               })
             }
-            else if (part === 'part_A') {
+            else if (part === 'A') {
               return listOfStudent.push({
                 ...item,
                 part: '',
@@ -126,8 +137,16 @@ export default function CourseEvaluationEntry() {
           setListOfStudent(listOfStudent);
 
           if (inputCourse.course_type === "Theory") {
-            setOpenTheory(true);
-            setPart("part_B"); 
+            if (inputCourse.part === 'A') {
+              setOpenTheory(true);
+              setPart("A");
+              setEndPoint('partAMarkEntry');
+            }
+            else {
+              setOpenTheory(true);
+              setPart("B");
+              setEndPoint('partBMarkEntry');
+            }
           } else {
             setEndPoint("labFinalMarkEntry");
           }
@@ -146,10 +165,15 @@ export default function CourseEvaluationEntry() {
 
   const postFinalMarkEntry = (event) => {
     event.preventDefault();
-    console.log({
-      inputs: [...listOfStudent],
-      teacher_id: 2,
-    });
+
+    if (!window.confirm("Are you sure to submit?")) {
+      return;
+    }
+
+    // console.log({
+    //   inputs: [...listOfStudent],
+    //   teacher_id: 1,
+    // });
 
     if (inputCourse.course_type === "Theory") {
       axios.put(`/${endPoint}`, {
@@ -244,7 +268,7 @@ export default function CourseEvaluationEntry() {
                       <th>SL</th>
                       <th>Registration No.</th>
                       <th>Student's Name</th>
-                      <th>{part === 'part_A' ? "Part A" : "Part B"}</th>
+                      <th>{part === 'A' ? "Part A" : "Part B"}</th>
                     </tr>
                   </thead>
                   <tbody>

@@ -19,7 +19,7 @@ export default function TeacherWorkspace() {
           <div className='Workspace-content'>
             <Link to="/teacher_workspace/course_evaluation_mark_entry"><FontAwesomeIcon icon={faEdit} /> Course Evaluation Mark Entry</Link>
             <Link to="/teacher_workspace/final_mark_entry"><FontAwesomeIcon icon={faEdit} /> Final Mark Entry</Link>
-            <Link to="/teacher_workspace/final_course_report_mark"><FontAwesomeIcon icon={faFileAlt} /> Course Report (Total Mark)</Link>
+            <Link to="/teacher_workspace/final_course_report_mark"><FontAwesomeIcon icon={faFileAlt} /> Course Report (Evaluation and Lab Mark)</Link>
             <Link to="/teacher_workspace/final_course_report_grade"><FontAwesomeIcon icon={faFileAlt} /> Course Report (Grade and Letter)</Link>
           </div>
         </div>

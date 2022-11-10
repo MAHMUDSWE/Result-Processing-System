@@ -105,6 +105,10 @@ export default function AssignCourse() {
                             />
                         </div>
                         <div className='selectInAssign'>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 92e8b83d454e09d713efdefd7f059ffe35a92b0b
                             <select name='part' required onChange={handleChange}>
                                 <option selected value=''>Role</option>
                                 <option value='A'>Course Teacher</option>

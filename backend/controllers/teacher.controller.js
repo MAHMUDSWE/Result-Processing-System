@@ -228,14 +228,14 @@ const putPartBMark = (req, res) => {
 }
 
 const getCourseWiseAttendaceAndEvaluation = (req, res) => {
-    var { course_id, semester, session } = req.body;
+    var { course_id, semester, session } = req.query;
 
-    var query = "SELECT reg_no, std_name, course_id, semester, class_attendance, term_test, class_assessment FROM tbl_result_theory natural join tbl_student WHERE course_id = ? AND semester = ? AND session = ? ";
+    var query = "SELECT reg_no, std_name, course_id, semester, total_class, class_attendance, term_test, class_assessment FROM tbl_result_theory natural join tbl_student WHERE course_id = ? AND semester = ? AND session = ? ";
 
     db.query(query, [course_id, semester, session], (err, rows, fields) => {
         if (!err) {
             res.status(200).json({
-                "success": `Course Wise Attendance and Mid Semester Marks Information`,
+                "message": `Course Wise Attendance and Mid Semester Marks Information`,
                 rows,
             });
         }
@@ -250,14 +250,14 @@ const getCourseWiseAttendaceAndEvaluation = (req, res) => {
 
 
 const getLabCourseFinalMarkList = (req, res) => {
-    var { course_id, semester, session } = req.body;
+    var { course_id, semester, session } = req.query;
 
-    var query = "SELECT reg_no, std_name, course_id, semester, total_mark FROM tbl_result_lab natural join tbl_student WHERE course_id = ? AND semester = ? AND session = ? ";
+    var query = "SELECT reg_no, std_name, course_id, course_credits, semester, total_mark, gpa, letter_grade FROM tbl_result_lab natural join tbl_student natural join tbl_course WHERE course_id = ? AND semester = ? AND session = ? ";
 
     db.query(query, [course_id, semester, session], (err, rows, fields) => {
         if (!err) {
             res.status(200).json({
-                "success": `Course Wise Exam marks Information`,
+                "message": `Course Wise Exam marks Information`,
                 rows,
             });
         }
@@ -271,7 +271,7 @@ const getLabCourseFinalMarkList = (req, res) => {
 }
 
 const getTheoryCourseFinalMarkList = (req, res) => {
-    var { course_id, semester, session } = req.body;
+    var { course_id, semester, session } = req.query;
 
     var query = "SELECT reg_no, std_name, gpa, letter_grade, course_id, course_title, course_credits, semester, tbl_result_theory.session FROM tbl_result_theory natural join tbl_student natural join tbl_course WHERE course_id = ? AND semester = ? AND session = ? ";
 

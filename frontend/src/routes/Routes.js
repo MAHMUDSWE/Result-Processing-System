@@ -1,26 +1,27 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
 
+import { AdminstratorLogout, StudentLogout, TeacherLogout } from '../components/logout'
 import AdminLogin from '../pages/admin/admin_login'
-import HomePage from '../pages/home'
-import StudentLogin from '../pages/student/student_login'
-import TeacherLogin from '../pages/teacher/teacher_login'
-import StudentWorkspace from '../pages/student/student_workspace'
-import { ProtectedRoutesAfterLogin, ProtectedRoutesBeforeLogin } from './route_protection'
-import TeacherWorkspace from '../pages/teacher/teacher_workspace'
 import AdminWorkspace from '../pages/admin/admin_workspace'
-import CourseRegistration from '../pages/student/course_registration'
-import Logout from '../components/logout'
-import StudentProfile from '../pages/student/student_profile'
+import AssignCourse from '../pages/admin/assignCourse'
 import CreateCourse from '../pages/admin/create_course'
+import OfferCourse from '../pages/admin/offer_course'
 import StudentDetailsEntry from '../pages/admin/studentDetailsEntry'
 import TeacherDetailsEntry from '../pages/admin/teacherDetailsEntry'
+import HomePage from '../pages/home'
+import Signup from '../pages/signup'
+import CourseRegistration from '../pages/student/course_registration'
+import StudentLogin from '../pages/student/student_login'
+import StudentProfile from '../pages/student/student_profile'
+import StudentWorkspace from '../pages/student/student_workspace'
 import CourseEvaluationEntry from '../pages/teacher/courseEvaluationEntry'
-import FinalMarkEntry from '../pages/teacher/finalMarkEntry'
-import OfferCourse from '../pages/admin/offer_course'
-import AssignCourse from '../pages/admin/assignCourse'
-import CourseReportTotalMark from '../pages/teacher/course_report_total_mark'
 import CourseReportGrade from '../pages/teacher/course_report_grade_letter'
+import CourseReportTotalMark from '../pages/teacher/course_report_total_mark'
+import FinalMarkEntry from '../pages/teacher/finalMarkEntry'
+import TeacherLogin from '../pages/teacher/teacher_login'
+import TeacherWorkspace from '../pages/teacher/teacher_workspace'
+import { AdminRoutesProtection, ProtectedRoutesBeforeLogin, StudentsRoutesProtection, TeacherRoutesProtection } from './route_protection'
 
 export default function PageRoutes() {
   return (
@@ -43,65 +44,85 @@ export default function PageRoutes() {
             <StudentLogin />
           </ProtectedRoutesBeforeLogin>} />
 
-          <Route path="/student_workspace" element={<ProtectedRoutesAfterLogin>
+          <Route path="/signup" element={<ProtectedRoutesBeforeLogin>
+            <Signup />
+          </ProtectedRoutesBeforeLogin>} />
+
+          {/* ///////////////////////////////////////////////////////////////////////// */}
+
+          <Route path="/student_workspace" element={<StudentsRoutesProtection>
             <StudentWorkspace />
-          </ProtectedRoutesAfterLogin>} />
+          </StudentsRoutesProtection>} />
 
-          <Route path="/student_profile" element={<ProtectedRoutesAfterLogin>
+          <Route path="/student_profile" element={<StudentsRoutesProtection>
             <StudentProfile />
-          </ProtectedRoutesAfterLogin>} />
+          </StudentsRoutesProtection>} />
 
-          <Route path="/student_workspace/course_registration" element={<ProtectedRoutesAfterLogin>
+          <Route path="/student_workspace/course_registration" element={<StudentsRoutesProtection>
             <CourseRegistration />
-          </ProtectedRoutesAfterLogin>} />
+          </StudentsRoutesProtection>} />
 
-          <Route path="/teacher_workspace" element={<ProtectedRoutesAfterLogin>
+          {/* ///////////////////////////////////////////////////////////////////////// */}
+
+          <Route path="/teacher_workspace" element={<TeacherRoutesProtection>
             <TeacherWorkspace />
-          </ProtectedRoutesAfterLogin>} />
+          </TeacherRoutesProtection>} />
 
-          <Route path="/teacher_workspace/course_evaluation_mark_entry" element={<ProtectedRoutesAfterLogin>
+          <Route path="/teacher_workspace/course_evaluation_mark_entry" element={<TeacherRoutesProtection>
             <CourseEvaluationEntry />
-          </ProtectedRoutesAfterLogin>} />
+          </TeacherRoutesProtection>} />
 
-          <Route path="/teacher_workspace/final_mark_entry" element={<ProtectedRoutesAfterLogin>
+          <Route path="/teacher_workspace/final_mark_entry" element={<TeacherRoutesProtection>
             <FinalMarkEntry />
-          </ProtectedRoutesAfterLogin>} />
+          </TeacherRoutesProtection>} />
 
-          <Route path='/teacher_workspace/final_course_report_mark' element={<ProtectedRoutesAfterLogin>
+          <Route path='/teacher_workspace/final_course_report_mark' element={<TeacherRoutesProtection>
             <CourseReportTotalMark />
-          </ProtectedRoutesAfterLogin>} />
+          </TeacherRoutesProtection>} />
 
-          <Route path='/teacher_workspace/final_course_report_grade' element={<ProtectedRoutesAfterLogin>
+          <Route path='/teacher_workspace/final_course_report_grade' element={<TeacherRoutesProtection>
             <CourseReportGrade />
-          </ProtectedRoutesAfterLogin>} />
+          </TeacherRoutesProtection>} />
 
-          <Route path="/admin_workspace" element={<ProtectedRoutesAfterLogin>
+          {/* ///////////////////////////////////////////////////////////////////////// */}
+
+          <Route path="/admin_workspace" element={<AdminRoutesProtection>
             <AdminWorkspace />
-          </ProtectedRoutesAfterLogin>} />
+          </AdminRoutesProtection>} />
 
-          <Route path="/admin_workspace/create_course" element={<ProtectedRoutesAfterLogin>
+          <Route path="/admin_workspace/create_course" element={<AdminRoutesProtection>
             <CreateCourse />
-          </ProtectedRoutesAfterLogin>} />
+          </AdminRoutesProtection>} />
 
-          <Route path="/admin_workspace/offer_course" element={<ProtectedRoutesAfterLogin>
+          <Route path="/admin_workspace/offer_course" element={<AdminRoutesProtection>
             <OfferCourse />
-          </ProtectedRoutesAfterLogin>} />
+          </AdminRoutesProtection>} />
 
-          <Route path="/admin_workspace/assign_course_teacher" element={<ProtectedRoutesAfterLogin>
+          <Route path="/admin_workspace/assign_course_teacher" element={<AdminRoutesProtection>
             <AssignCourse />
-          </ProtectedRoutesAfterLogin>} />
+          </AdminRoutesProtection>} />
 
-          <Route path="/admin_workspace/student_entry" element={<ProtectedRoutesAfterLogin>
+          <Route path="/admin_workspace/student_entry" element={<AdminRoutesProtection>
             <StudentDetailsEntry />
-          </ProtectedRoutesAfterLogin>} />
+          </AdminRoutesProtection>} />
 
-          <Route path="/admin_workspace/teacher_entry" element={<ProtectedRoutesAfterLogin>
+          <Route path="/admin_workspace/teacher_entry" element={<AdminRoutesProtection>
             <TeacherDetailsEntry />
-          </ProtectedRoutesAfterLogin>} />
+          </AdminRoutesProtection>} />
 
-          <Route path="/logout" element={<ProtectedRoutesAfterLogin>
-            <Logout />
-          </ProtectedRoutesAfterLogin>} />
+          {/* ///////////////////////////////////////////////////////////////////////// */}
+
+          <Route path="/student_logout" element={<StudentsRoutesProtection>
+            <StudentLogout />
+          </StudentsRoutesProtection>} />
+
+          <Route path="/teacher_logout" element={<TeacherRoutesProtection>
+            <TeacherLogout />
+          </TeacherRoutesProtection>} />
+
+          <Route path="/admin_logout" element={<AdminRoutesProtection>
+            <AdminstratorLogout />
+          </AdminRoutesProtection>} />
 
         </Routes>
       </BrowserRouter>

@@ -7,7 +7,7 @@ function Navbar() {
 
     return (
         <div className='Navbar-section '>
-            
+
             <div className='Logo-container'>
 
                 <div>
@@ -29,7 +29,7 @@ function Navbar() {
                     <NavLink to="/student_profile"
                         className={({ isActive }) => isActive ? "activeItem" : "nav-li-link"}>Profile</NavLink>
 
-                    <NavLink to="/logout"
+                    <NavLink to="/student_logout"
                         className={({ isActive }) => isActive ? "activeItem" : "nav-li-link"} >Log out</NavLink>
                 </nav>
             </div>
@@ -44,7 +44,7 @@ export function TeacherNavbar() {
 
     return (
         <div className='Navbar-section '>
-            
+
             <div className='Logo-container'>
 
                 <div>
@@ -66,7 +66,7 @@ export function TeacherNavbar() {
                     <NavLink to="/teacher_profile"
                         className={({ isActive }) => isActive ? "activeItem" : "nav-li-link"}>Profile</NavLink>
 
-                    <NavLink to="/logout"
+                    <NavLink to="/teacher_logout"
                         className={({ isActive }) => isActive ? "activeItem" : "nav-li-link"} >Log out</NavLink>
                 </nav>
             </div>
@@ -79,7 +79,7 @@ export function AdminNavbar() {
 
     return (
         <div className='Navbar-section '>
-            
+
             <div className='Logo-container'>
 
                 <div>
@@ -101,7 +101,7 @@ export function AdminNavbar() {
                     <NavLink to="/admin_profile"
                         className={({ isActive }) => isActive ? "activeItem" : "nav-li-link"}>Profile</NavLink>
 
-                    <NavLink to="/logout"
+                    <NavLink to="/admin_logout"
                         className={({ isActive }) => isActive ? "activeItem" : "nav-li-link"} >Log out</NavLink>
                 </nav>
             </div>

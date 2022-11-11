@@ -4,9 +4,6 @@ import { TeacherNavbar } from "../../components/navbar";
 import "./style/course_report_total_mark.css";
 
 export default function CourseReportTotalMark() {
-    var department = "Institute of Information and Communication Technology";
-
-    var degreeName = "Bachelor of Science(Engineering)";
 
     const [disabledButton, setDisabledButton] = useState(false);
 

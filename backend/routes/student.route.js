@@ -3,7 +3,9 @@ const {
     getStudentDetails,
     getCourseOfferList,
     getDropCourseList,
-    postRegisterCourse
+    postRegisterCourse,
+    studentSignUp,
+    studentLogin
 } = require('../controllers/student.controller');
 
 const router = express();
@@ -15,5 +17,10 @@ router.get('/courseOfferList', getCourseOfferList);
 router.get('/dropCourseList', getDropCourseList);
 
 router.post('/registerCourse', postRegisterCourse);
+
+router.put('/student_signup', studentSignUp);
+
+router.post('/student_login', studentLogin);
+
 
 module.exports = router;

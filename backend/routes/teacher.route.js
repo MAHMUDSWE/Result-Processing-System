@@ -8,7 +8,9 @@ const {
     putPartBMark,
     getCourseWiseAttendaceAndEvaluation,
     getLabCourseFinalMarkList,
-    getTheoryCourseFinalMarkList
+    getTheoryCourseFinalMarkList,
+    teacherSignUp,
+    teacherLogin
 } = require('../controllers/teacher.controller');
 
 const router = express();
@@ -31,6 +33,10 @@ router.get('/courseWiseAttendaceAndEvaluation', getCourseWiseAttendaceAndEvaluat
 router.get('/labCourseFinalMarkList', getLabCourseFinalMarkList);
 
 router.get('/theoryCourseFinalMarkList', getTheoryCourseFinalMarkList);
+
+router.put('/teacher_signup', teacherSignUp);
+
+router.post('/teacher_login', teacherLogin)
 
 
 module.exports = router;

@@ -1,6 +1,27 @@
 const db = require("../models/project350.model");
 const { v4: uuidv4 } = require('uuid');
 
+const getCourseList = (req, res) => {
+    var { dept_id } = req.query;
+
+    var query = "SELECT * FROM tbl_course WHERE dept_id = ?";
+
+    db.query(query, [dept_id], (err, result) => {
+        if (!err && result.length > 0) {
+            res.status(200).json({
+                "message": `List of courses of department ${dept_id}`,
+                course_list: result
+            })
+        }
+        else {
+            res.status(400).json({
+                "message": "List get failed",
+                err
+            })
+        }
+    })
+}
+
 const postCreateDepartment = (req, res) => {
 
     var { values } = req.body;
@@ -50,7 +71,7 @@ const postStudentDetails = (req, res) => {
 
     var { reg_no, std_name, dept_id, std_email, std_phone, std_address, std_dateOfBirth } = req.body;
 
-    var query = "insert into tbl_student values(?, ?, ?, ?, ?, ?, ?)";
+    var query = "insert into tbl_student(reg_no, std_name, dept_id, std_email, std_phone, std_address, std_dateOfBirth) values(?, ?, ?, ?, ?, ?, ?)";
 
     db.query(query, [reg_no, std_name, dept_id, std_email, std_phone, std_address, std_dateOfBirth], (err, result) => {
         if (!err) {
@@ -70,11 +91,11 @@ const postStudentDetails = (req, res) => {
 
 const postTeacherDetails = (req, res) => {
 
-    var { teacher_id, teacher_name, dept_id, teacher_email, teacher_phone } = req.body;
+    var { teacher_id, teacher_name, dept_id, teacher_email, teacher_phone, designation } = req.body;
 
-    var query = "insert into tbl_teacher values(?, ?, ?, ?, ?)";
+    var query = "insert into tbl_teacher(teacher_id, teacher_name, dept_id, teacher_email, teacher_phone, designation) values(?, ?, ?, ?, ?, ?)";
 
-    db.query(query, [teacher_id, teacher_name, dept_id, teacher_email, teacher_phone], (err, result) => {
+    db.query(query, [teacher_id, teacher_name, dept_id, teacher_email, teacher_phone, designation], (err, result) => {
         if (!err) {
             res.status(200).json({
                 "message": "Teacher info added successfully",
@@ -163,6 +184,7 @@ const assignCourseTeacher = (req, res) => {
 }
 
 module.exports = {
+    getCourseList,
     postCreateDepartment,
     postCreateCourse,
     postStudentDetails,

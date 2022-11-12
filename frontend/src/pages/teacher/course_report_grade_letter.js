@@ -122,222 +122,242 @@ export default function CourseReportGrade() {
 
     return (
         <div>
-            <TeacherNavbar />
+            {/* <TeacherNavbar />
 
             <div className="CourseEvaluationEntry-container">
                 <div className="CourseEvaluationEntry-heading">
                     <h3>Course Report Grade Wise</h3>
-                </div>
-                {open ? (<div>
+                </div> */}
+            {open ? (
+                <div>
+                    <div className="CourseEvaluationEntry-container">
 
-                    {openTheory ? (
                         <div>
-                            <h3>Course Wise Exam Marks Information</h3>
-                            <div className="Profile-info-container">
-                                <table className="table2">
+
+                            {openTheory ? (
+                                <div>
+                                    <div className="CourseEvaluationEntry-heading">
+                                        <h3>Course Wise Exam Marks Information</h3>
+                                    </div>
+                                    <div className="Profile-info-container">
+                                        <table className="table2">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Course ID</td>
+                                                    <td>: {inputCourse.course_id}</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Course Title</td>
+                                                    <td>: {inputCourse.course_title}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Course Credit</td>
+                                                    <td>: {listOfStudent[0].course_credits}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Semester</td>
+                                                    <td>: {inputCourse.semester}</td>
+                                                    <td>Session</td>
+                                                    <td>: {inputCourse.session}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Degree Name</td>
+                                                    <td>: {degreeName}</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Department</td>
+                                                    <td>: {department}</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <table className="table1">
+                                        <thead>
+                                            <tr>
+                                                <th>SL</th>
+                                                <th>Registration No.</th>
+                                                <th>Student's Name</th>
+                                                <th>Grade Point</th>
+                                                <th>Letter Grade</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {listOfStudent.filter((values) => values.course_id !== undefined).map((item, key) => (
+
+                                                <tr key={key}>
+                                                    <td>{key + 1}</td>
+                                                    <td>{item.reg_no}</td>
+                                                    <td>{item.std_name}</td>
+                                                    <td>{item.gpa}</td>
+                                                    <td>{item.letter_grade}</td>
+                                                </tr>
+                                            )
+                                            )}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            ) : (<div>
+                                <div className="CourseEvaluationEntry-heading">
+                                    <h3>Course Wise Exam Marks Information</h3>
+                                </div>
+                                <div className="Profile-info-container">
+                                    <table className="table2">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Course ID</td>
+                                                <td>: {inputCourse.course_id}</td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Course Title</td>
+                                                <td>: {inputCourse.course_title}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Course Credit</td>
+                                                <td>: {listOfStudent[0].course_credits}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Semester</td>
+                                                <td>: {inputCourse.semester}</td>
+                                                <td>Session</td>
+                                                <td>: {inputCourse.session}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Degree Name</td>
+                                                <td>: {degreeName}</td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Department</td>
+                                                <td>: {department}</td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <table className="table1">
                                     <thead>
                                         <tr>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
+                                            <th>SL</th>
+                                            <th>Registration No.</th>
+                                            <th>Student's Name</th>
+                                            <th>Grade Point</th>
+                                            <th>Letter Grade</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Course ID</td>
-                                            <td>: {inputCourse.course_id}</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Course Title</td>
-                                            <td>: {inputCourse.course_title}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Course Credit</td>
-                                            <td>: {listOfStudent[0].course_credits}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Semester</td>
-                                            <td>: {inputCourse.semester}</td>
-                                            <td>Session</td>
-                                            <td>: {inputCourse.session}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Degree Name</td>
-                                            <td>: {degreeName}</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Department</td>
-                                            <td>: {department}</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                        {listOfStudent.filter((values) => values.course_id !== undefined).map((item, key) => (
 
-                            <table className="table1">
-                                <thead>
-                                    <tr>
-                                        <th>SL</th>
-                                        <th>Registration No.</th>
-                                        <th>Student's Name</th>
-                                        <th>Grade Point</th>
-                                        <th>Letter Grade</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {listOfStudent.filter((values) => values.course_id !== undefined).map((item, key) => (
-
-                                        <tr key={key}>
-                                            <td>{key + 1}</td>
-                                            <td>{item.reg_no}</td>
-                                            <td>{item.std_name}</td>
-                                            <td>{item.gpa}</td>
-                                            <td>{item.letter_grade}</td>
-                                        </tr>
-                                    )
-                                    )}
-
-                                </tbody>
-                            </table>
-                        </div>
-                    ) : (<div>
-
-                        <div className="Profile-info-container">
-                            <table className="table2">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Course ID</td>
-                                        <td>: {inputCourse.course_id}</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Course Title</td>
-                                        <td>: {inputCourse.course_title}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Course Credit</td>
-                                        <td>: {listOfStudent[0].course_credits}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Semester</td>
-                                        <td>: {inputCourse.semester}</td>
-                                        <td>Session</td>
-                                        <td>: {inputCourse.session}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Degree Name</td>
-                                        <td>: {degreeName}</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Department</td>
-                                        <td>: {department}</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <table className="table1">
-                            <thead>
-                                <tr>
-                                    <th>SL</th>
-                                    <th>Registration No.</th>
-                                    <th>Student's Name</th>
-                                    <th>Grade Point</th>
-                                    <th>Letter Grade</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {listOfStudent.filter((values) => values.course_id !== undefined).map((item, key) => (
-
-                                    <tr key={key}>
-                                        <td>{key + 1}</td>
-                                        <td>{item.reg_no}</td>
-                                        <td>{item.std_name}</td>
-                                        <td>{item.gpa}</td>
-                                        <td>{item.letter_grade}</td>
-                                    </tr>
-                                )
-                                )}
-                            </tbody>
-                        </table>
-                    </div>)}
-                </div>)
-                    : (
-                        (<div>
-                            <form onSubmit={getAssignedCourseList}>
-                                <div>
-                                    <select
-                                        name="USN"
-                                        required onChange={handleChange}
-                                        onClick={() => {
-                                            setDisabledButton(false);
-                                        }}
-                                    >
-                                        <option value="">USN</option>
-                                        <option value="2020-1">2020-1</option>
-                                        <option value="2020-2">2020-2</option>
-                                        <option value="2021-1">2021-1</option>
-                                        <option value="2021-2">2021-2</option>
-                                        <option value="2022-1">2022-1</option>
-                                        <option value="2022-2">2022-2</option>
-                                        <option value="2023-1">2023-1</option>
-                                        <option value="2023-2">2023-2</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <select
-                                        name="semester"
-                                        required onChange={handleChange}
-                                        onClick={() => {
-                                            setDisabledButton(false);
-                                        }}
-                                    >
-                                        <option value="">Semester</option>
-                                        <option value="1st">1st</option>
-                                        <option value="2nd">2nd</option>
-                                        <option value="3rd">3rd</option>
-                                        <option value="4th">4th</option>
-                                        <option value="5th">5th</option>
-                                        <option value="6th">6th</option>
-                                        <option value="7th">7th</option>
-                                        <option value="8th">8th</option>
-                                    </select>
-                                </div>
-                                <button className={`button1 ${disabledButton === true && "disabled"}`}>Get Assigned Courses List</button>
-                            </form>
-
-                            <form onSubmit={getCourseMarksInformation}>
-                                <div>
-                                    <select name="course_title" onChange={handleInputCourse}>
-                                        <option value="">List of Assigned Courses</option>
-                                        {listOfAssignedCourses.filter((values) => values.course_id !== undefined).map((item, key) => (
-                                            <option key={key} value={item.course_id}>{item.course_title}</option>
+                                            <tr key={key}>
+                                                <td>{key + 1}</td>
+                                                <td>{item.reg_no}</td>
+                                                <td>{item.std_name}</td>
+                                                <td>{item.gpa}</td>
+                                                <td>{item.letter_grade}</td>
+                                            </tr>
                                         )
                                         )}
-                                    </select>
-                                </div>
+                                    </tbody>
+                                </table>
+                            </div>)}
+                        </div>
+                    </div>
+                </div>
+            )
 
-                                {/* <div>
+                : (
+                    (
+                        <div>
+                            <TeacherNavbar />
+
+                            <div className="CourseEvaluationEntry-container">
+                                <div className="CourseEvaluationEntry-heading">
+                                    <h3>Course Report Grade Wise</h3>
+                                </div>
+                                <div>
+                                    <form onSubmit={getAssignedCourseList}>
+                                        <div>
+                                            <select
+                                                name="USN"
+                                                required onChange={handleChange}
+                                                onClick={() => {
+                                                    setDisabledButton(false);
+                                                }}
+                                            >
+                                                <option value="">USN</option>
+                                                <option value="2020-1">2020-1</option>
+                                                <option value="2020-2">2020-2</option>
+                                                <option value="2021-1">2021-1</option>
+                                                <option value="2021-2">2021-2</option>
+                                                <option value="2022-1">2022-1</option>
+                                                <option value="2022-2">2022-2</option>
+                                                <option value="2023-1">2023-1</option>
+                                                <option value="2023-2">2023-2</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <select
+                                                name="semester"
+                                                required onChange={handleChange}
+                                                onClick={() => {
+                                                    setDisabledButton(false);
+                                                }}
+                                            >
+                                                <option value="">Semester</option>
+                                                <option value="1st">1st</option>
+                                                <option value="2nd">2nd</option>
+                                                <option value="3rd">3rd</option>
+                                                <option value="4th">4th</option>
+                                                <option value="5th">5th</option>
+                                                <option value="6th">6th</option>
+                                                <option value="7th">7th</option>
+                                                <option value="8th">8th</option>
+                                            </select>
+                                        </div>
+                                        <button className={`button1 ${disabledButton === true && "disabled"}`}>Get Assigned Courses List</button>
+                                    </form>
+
+                                    <form onSubmit={getCourseMarksInformation}>
+                                        <div>
+                                            <select name="course_title" onChange={handleInputCourse}>
+                                                <option value="">List of Assigned Courses</option>
+                                                {listOfAssignedCourses.filter((values) => values.course_id !== undefined).map((item, key) => (
+                                                    <option key={key} value={item.course_id}>{item.course_title}</option>
+                                                )
+                                                )}
+                                            </select>
+                                        </div>
+
+                                        {/* <div>
                                     <select name='report_type' required onChange={handleReportType}>
                                         <option value="" >Report Type</option>
 
@@ -353,12 +373,15 @@ export default function CourseReportGrade() {
 
                                     </select>
                                 </div> */}
-                                <button className="button">Submit</button>
-                            </form>
-                        </div>)
+                                        <button className="button">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     )
-                }
-            </div>
+                )
+            }
+            {/* </div> */}
         </div>
     );
 }

@@ -107,6 +107,17 @@ export default function TeacherDetailsEntry() {
                             placeholder="phone no"
                         />
                     </div>
+                    <div>
+                        <input
+                            type="text"
+                            name="designation"
+                            value={inputs.designation || ""}
+                            onChange={handleChange}
+                            autoComplete="off"
+                            required 
+                            placeholder="designation"
+                        />
+                    </div>
                     {/* <div>
                         <input
                             type="text"

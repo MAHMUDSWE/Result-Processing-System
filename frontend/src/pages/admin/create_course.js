@@ -35,7 +35,7 @@ export default function CreateCourse() {
                     setOpen(true);
                 }
                 else if (error.response.status === 400) {
-                    // console.log(error.response.data.message);
+                    console.log(error);
                     setMessage(error.response.data.message);
                     setStatusCode(400);
                     setOpen(true);

@@ -8,6 +8,10 @@ export default function OfferCourse() {
 
     let [inputs, setInputs] = useState({});
 
+    const [courseList, setCourseList] = useState([]);
+
+
+
     const [inputCourseId, setInputCourseId] = useState('');
     const [course_id, setCourse_id] = useState([]);
 
@@ -23,15 +27,38 @@ export default function OfferCourse() {
     //     };
     // }, [])
 
+
+
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
+
+        if (name === 'dept_id' && value.length === 3) {
+            axios.get('/getCourse', {
+                params: {
+                    dept_id: value
+                }
+            })
+                .then(res => res.data)
+                .then(data => {
+                    console.log(data.course_list);
+                    setCourseList([...data.course_list]);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    alert("Course not found")
+                })
+        }
 
         setInputs(values => ({ ...values, [name]: value }));
     }
 
     const handleChangeCourseId = (event) => {
         setInputCourseId(event.target.value);
+    }
+
+    if (inputs.dept_id !== undefined) {
+        // console.log(courseList);
     }
 
     const addCourseId = () => {
@@ -120,34 +147,16 @@ export default function OfferCourse() {
                             >
                                 Create Course</button>
                         </div>
-                        : <div> <div className='course_id'>
-                            <input
-                                type="text"
-                                name="course_id"
-                                value={inputCourseId || ""}
-                                onChange={handleChangeCourseId}
-                                autoComplete="off"
-                                pattern="[a-z A-Z 0-9]+"
-                                placeholder="course id"
-                            />
-                            <button className='course_idButton' onClick={addCourseId}>+</button>
-                        </div>
-                            <div>
-                                Course List:
-                                {course_id.map((item, key) => (
-                                    <div className='removeCourseId'>
-                                        <li name={item} style={{ listStyleType: "none" }} >
-                                            {key + 1}: {item}
-                                            <button onClick={() => { removeCourseId(key) }}>-</button>
-                                        </li>
+                        : <div>
 
-                                    </div>
-
-                                )
-                                )}
-                            </div>
+                            <datalist id='dept_id'>
+                                <option value='100'>Software Engineering</option>
+                                <option value='101'>Computer Science and Engineering</option>
+                                <option value='102'>Electrical and Electronic Engineering</option>
+                            </datalist>
                             <div>
                                 <input
+                                    list='dept_id'
                                     type="text"
                                     name="dept_id"
                                     value={inputs.dept_id || ""}
@@ -158,6 +167,43 @@ export default function OfferCourse() {
 
                                 />
                             </div>
+
+                            <datalist id='course_id'>
+                                {courseList.map((value, key) => {
+                                    return (
+                                        <option key={key} value={value.course_id}>{value.course_title}</option>
+                                    )
+                                })}
+                            </datalist>
+
+                            <div className='course_id'>
+                                <input
+                                    list='course_id'
+                                    type="text"
+                                    name="course_id"
+                                    value={inputCourseId || ""}
+                                    onChange={handleChangeCourseId}
+                                    autoComplete="off"
+                                    pattern="[a-z A-Z 0-9]+"
+                                    placeholder="course id"
+                                />
+                                <button className='course_idButton' onClick={addCourseId}>+</button>
+                            </div>
+                            <div>
+                                Course List:
+                                {course_id.map((item, key) => (
+                                    <div key={key} className='removeCourseId'>
+                                        <li name={item} style={{ listStyleType: "none" }} >
+                                            {key + 1}: {item}
+                                            <button onClick={() => { removeCourseId(key) }}>-</button>
+                                        </li>
+
+                                    </div>
+
+                                )
+                                )}
+                            </div>
+
                             <div>
                                 <select name="semester" required onChange={handleChange}>
                                     <option selected value=''>Semester</option>
@@ -207,6 +253,7 @@ export default function OfferCourse() {
                                 </select>
                             </div>
                             <button onClick={handleSubmit}>Submit</button>
+
                         </div>
                 }
             </div>

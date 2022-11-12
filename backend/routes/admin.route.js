@@ -5,10 +5,13 @@ const {
     postTeacherDetails,
     postCreateDepartment,
     postOfferCourse,
-    assignCourseTeacher
+    assignCourseTeacher,
+    getCourseList
 } = require("../controllers/admin.controller");
 
 const router = express();
+
+router.get('/getCourse', getCourseList);
 
 router.post("/createDepartment", postCreateDepartment);
 

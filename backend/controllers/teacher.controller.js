@@ -61,7 +61,7 @@ const getAssignedCourseList = (req, res) => {
 const getTakenCourseStudentList = (req, res) => {
     var { course_id, semester, session } = req.query;
 
-    var query = "SELECT reg_no, std_name, course_id, semester, session, USN FROM tbl_takes natural join tbl_student WHERE course_id = ? AND semester = ? AND session = ? ";
+    var query = "SELECT tbl_takes.reg_no, std_name, course_id, semester, tbl_takes.session, USN FROM tbl_takes, tbl_student WHERE tbl_takes.reg_no = tbl_student.reg_no AND course_id = ? AND semester = ? AND tbl_takes.session = ? ";
 
     db.query(query, [course_id, semester, session], (err, rows, fields) => {
         if (!err) {
@@ -273,9 +273,10 @@ const putPartBMark = (req, res) => {
 const getCourseWiseAttendaceAndEvaluation = (req, res) => {
     var { course_id, semester, session } = req.query;
 
-    var query = "SELECT reg_no, std_name, course_id, semester, total_class, class_attendance, term_test, class_assessment FROM tbl_result_theory natural join tbl_student WHERE course_id = ? AND semester = ? AND session = ? ";
+    var query = "SELECT tbl_result_theory.reg_no, tbl_student.std_name, course_id, semester, total_class, class_attendance, term_test, class_assessment FROM tbl_result_theory, tbl_student WHERE tbl_result_theory.reg_no = tbl_student.reg_no AND course_id = ? AND semester = ? AND tbl_result_theory.session = ? ";
 
     db.query(query, [course_id, semester, session], (err, rows, fields) => {
+        // console.log(rows);
         if (!err) {
             res.status(200).json({
                 "message": `Course Wise Attendance and Mid Semester Marks Information`,
@@ -295,7 +296,7 @@ const getCourseWiseAttendaceAndEvaluation = (req, res) => {
 const getLabCourseFinalMarkList = (req, res) => {
     var { course_id, semester, session } = req.query;
 
-    var query = "SELECT reg_no, std_name, course_id, course_credits, semester, total_mark, gpa, letter_grade FROM tbl_result_lab natural join tbl_student natural join tbl_course WHERE course_id = ? AND semester = ? AND session = ? ";
+    var query = "SELECT tbl_result_lab.reg_no, tbl_student.std_name, tbl_result_lab.course_id, course_credits, semester, total_mark, gpa, letter_grade FROM tbl_result_lab, tbl_student, tbl_course WHERE tbl_result_lab.reg_no = tbl_student.reg_no AND tbl_result_lab.course_id = tbl_course.course_id AND tbl_result_lab.course_id = ? AND semester = ? AND tbl_result_lab.session = ? ";
 
     db.query(query, [course_id, semester, session], (err, rows, fields) => {
         if (!err) {
@@ -316,7 +317,7 @@ const getLabCourseFinalMarkList = (req, res) => {
 const getTheoryCourseFinalMarkList = (req, res) => {
     var { course_id, semester, session } = req.query;
 
-    var query = "SELECT reg_no, std_name, gpa, letter_grade, course_id, course_title, course_credits, semester, tbl_result_theory.session FROM tbl_result_theory natural join tbl_student natural join tbl_course WHERE course_id = ? AND semester = ? AND session = ? ";
+    var query = "SELECT tbl_result_theory.reg_no, std_name, gpa, letter_grade, tbl_result_theory.course_id, course_title, course_credits, semester, tbl_result_theory.session FROM tbl_result_theory, tbl_student, tbl_course WHERE tbl_result_theory.reg_no = tbl_student.reg_no AND tbl_result_theory.course_id = tbl_course.course_id AND tbl_result_theory.course_id = ? AND semester = ? AND tbl_result_theory.session = ? ";
 
     db.query(query, [course_id, semester, session], (err, rows, fields) => {
         if (!err) {

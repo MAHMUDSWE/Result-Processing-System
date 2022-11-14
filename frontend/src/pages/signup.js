@@ -56,6 +56,10 @@ export default function Signup() {
                     console.log(error.response.data.message);
                     setMessage(error.response.data.message);
                 }
+                else if (error.response.status === 401) {
+                    console.log(error.response.data.message);
+                    setMessage(error.response.data.message);
+                }
             });
     }
 

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
 import axios from "axios";
+import React, { useState } from "react";
 import { TeacherNavbar } from "../../components/navbar";
+import { PaginatedItemsLetterGrade } from "./pagination";
 import "./style/course_report_total_mark.css";
 
 export default function CourseReportGrade() {
@@ -45,7 +46,7 @@ export default function CourseReportGrade() {
         axios.get("/assignedCourse", {
             params: {
                 ...inputs,
-                teacher_id: 2
+                // teacher_id: 2
             }
         })
             .then((res) => res.data)
@@ -130,7 +131,7 @@ export default function CourseReportGrade() {
                 </div> */}
             {open ? (
                 <div>
-                    <div className="CourseEvaluationEntry-container">
+                    <div className="CourseReportTotalMark-container">
 
                         <div>
 
@@ -186,7 +187,7 @@ export default function CourseReportGrade() {
                                         </table>
                                     </div>
 
-                                    <table className="table1">
+                                    {/* <table className="table1">
                                         <thead>
                                             <tr>
                                                 <th>SL</th>
@@ -211,7 +212,9 @@ export default function CourseReportGrade() {
                                             )}
 
                                         </tbody>
-                                    </table>
+                                    </table> */}
+
+                                    <PaginatedItemsLetterGrade itemsPerPage={3} listOfStudent={listOfStudent} />
                                 </div>
                             ) : (<div>
                                 <div className="CourseEvaluationEntry-heading">
@@ -264,7 +267,7 @@ export default function CourseReportGrade() {
                                     </table>
                                 </div>
 
-                                <table className="table1">
+                                {/* <table className="table1">
                                     <thead>
                                         <tr>
                                             <th>SL</th>
@@ -287,7 +290,10 @@ export default function CourseReportGrade() {
                                         )
                                         )}
                                     </tbody>
-                                </table>
+                                </table> */}
+
+                                <PaginatedItemsLetterGrade itemsPerPage={3} listOfStudent={listOfStudent} />
+
                             </div>)}
                         </div>
                     </div>

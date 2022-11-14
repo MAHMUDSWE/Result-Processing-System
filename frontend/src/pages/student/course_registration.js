@@ -26,6 +26,8 @@ export default function CourseRegistration() {
         setInputsRegular(values => ({ ...values, [name]: value }));
     }
 
+
+
     const getRegularCoursesList = (event) => {
         event.preventDefault();
 
@@ -35,7 +37,7 @@ export default function CourseRegistration() {
         axios.get("/courseOfferList", {
             params: {
                 ...inputsRegular,
-                'dept_id': 100
+                // 'dept_id': 100
             }
         })
             .then(res => res.data)
@@ -85,7 +87,7 @@ export default function CourseRegistration() {
         axios.get("/dropCourseList", {
             params: {
                 ...inputsDrop,
-                'dept_id': 100
+                // 'dept_id': 100
             }
         })
             .then(res => res.data)
@@ -103,6 +105,7 @@ export default function CourseRegistration() {
             })
             .catch(error => {
                 if (error.response.status === 401) {
+                    
                     console.log(error.response.data.message);
                 }
                 else if (error.response.status === 400) {
@@ -159,7 +162,7 @@ export default function CourseRegistration() {
         event.preventDefault();
 
         axios.post("/registerCourse", {
-            reg_no: 2018831069,
+            // reg_no: 2018831069,
             course_list: listOfCourses.filter((values) => values.course_id !== undefined)
         })
             .then(res => res.data)

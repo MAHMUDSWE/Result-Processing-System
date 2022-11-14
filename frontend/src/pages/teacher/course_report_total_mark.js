@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { TeacherNavbar } from "../../components/navbar";
 import "./style/course_report_total_mark.css";
+import { PaginatedItemsEvaluationMark, PaginatedItemsTotalMarkLab } from "./pagination";
 
 export default function CourseReportTotalMark() {
 
@@ -31,6 +32,20 @@ export default function CourseReportTotalMark() {
         setInputCourse(filteredCourse);
     }
 
+    const [teacherName, setTeacherName] = useState();
+
+    useEffect(() => {
+        axios('/teacherDetails')
+            .then(res => res.data)
+            .then(data => {
+                setTeacherName(data.rows[0].teacher_name);
+                console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    })
+
     const getAssignedCourseList = (event) => {
         event.preventDefault();
 
@@ -42,7 +57,7 @@ export default function CourseReportTotalMark() {
         axios.get("/assignedCourse", {
             params: {
                 ...inputs,
-                teacher_id: 2
+                // teacher_id: 2
             }
         })
             .then((res) => res.data)
@@ -128,7 +143,7 @@ export default function CourseReportTotalMark() {
             {open ? (
                 <div>
 
-                    <div className="CourseEvaluationEntry-container">
+                    <div className="CourseReportTotalMark-container">
                         <div>
 
                             {openTheory ? (
@@ -177,7 +192,7 @@ export default function CourseReportTotalMark() {
                                         </table>
                                     </div>
 
-                                    <table className="table1">
+                                    {/* <table className="table1">
                                         <thead>
                                             <tr>
                                                 <th>SL</th>
@@ -203,7 +218,9 @@ export default function CourseReportTotalMark() {
                                             )}
 
                                         </tbody>
-                                    </table>
+                                    </table> */}
+
+                                    <PaginatedItemsEvaluationMark itemsPerPage={20} listOfStudent={listOfStudent} teacherName={teacherName} />
                                 </div>
                             ) : (<div>
                                 <div className="CourseEvaluationEntry-heading">
@@ -246,7 +263,7 @@ export default function CourseReportTotalMark() {
                                     </table>
                                 </div>
 
-                                <table className="table1">
+                                {/* <table className="table1">
                                     <thead>
                                         <tr>
                                             <th>SL</th>
@@ -267,7 +284,9 @@ export default function CourseReportTotalMark() {
                                         )
                                         )}
                                     </tbody>
-                                </table>
+                                </table> */}
+
+                                <PaginatedItemsTotalMarkLab itemsPerPage={20} listOfStudent={listOfStudent} />
                             </div>)}
                         </div>
                     </div>

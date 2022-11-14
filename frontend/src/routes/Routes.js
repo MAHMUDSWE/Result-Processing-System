@@ -21,6 +21,7 @@ import CourseReportTotalMark from '../pages/teacher/course_report_total_mark'
 import FinalMarkEntry from '../pages/teacher/finalMarkEntry'
 import TabulationSheet from '../pages/teacher/tabulation_sheet'
 import TeacherLogin from '../pages/teacher/teacher_login'
+import TeacherProfile from '../pages/teacher/teacher_profile'
 import TeacherWorkspace from '../pages/teacher/teacher_workspace'
 import { AdminRoutesProtection, ProtectedRoutesBeforeLogin, StudentsRoutesProtection, TeacherRoutesProtection } from './route_protection'
 
@@ -67,6 +68,10 @@ export default function PageRoutes() {
 
           <Route path="/teacher_workspace" element={<TeacherRoutesProtection>
             <TeacherWorkspace />
+          </TeacherRoutesProtection>} />
+
+          <Route path="/teacher_profile" element={<TeacherRoutesProtection>
+            <TeacherProfile />
           </TeacherRoutesProtection>} />
 
           <Route path="/teacher_workspace/course_evaluation_mark_entry" element={<TeacherRoutesProtection>

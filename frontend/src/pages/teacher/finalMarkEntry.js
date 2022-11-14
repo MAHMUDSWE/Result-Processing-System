@@ -67,7 +67,7 @@ export default function CourseEvaluationEntry() {
     axios.get("/assignedCourse", {
       params: {
         ...inputs,
-        teacher_id: 2
+        // teacher_id: 2
       }
     })
       .then((res) => res.data)
@@ -76,6 +76,7 @@ export default function CourseEvaluationEntry() {
           alert("Course not found!")
         }
         else {
+          console.log(data.rows)
           data.rows.map((item) => {
             return listOfAssignedCourses.push(item)
           })
@@ -178,7 +179,7 @@ export default function CourseEvaluationEntry() {
     if (inputCourse.course_type === "Theory") {
       axios.put(`/${endPoint}`, {
         inputs: [...listOfStudent],
-        teacher_id: 2,
+        // teacher_id: 2,
       })
         .then(res => res.data)
         .then(data => {
@@ -206,7 +207,7 @@ export default function CourseEvaluationEntry() {
     } else {
       axios.post(`/${endPoint}`, {
         inputs: [...listOfStudent],
-        teacher_id: 2,
+        // teacher_id: 2,
       })
         .then(res => res.data)
         .then(data => {

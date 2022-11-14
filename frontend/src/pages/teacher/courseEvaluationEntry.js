@@ -80,7 +80,7 @@ export default function CourseEvaluationEntry() {
     axios.get("/assignedCourse", {
       params: {
         ...inputs,
-        teacher_id: 1
+        // teacher_id: 1
       }
     })
       .then((res) => res.data)

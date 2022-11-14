@@ -45,7 +45,7 @@ export default function TabulationSheet() {
         axios.get("/assignedCourse", {
             params: {
                 ...inputs,
-                teacher_id: 2
+                // teacher_id: 2
             }
         })
             .then((res) => res.data)

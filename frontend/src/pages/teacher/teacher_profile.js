@@ -1,18 +1,18 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/navbar'
-import './style/student_profile.css'
+import './style/teacher_profile.css'
 
-export default function StudentProfile() {
+export default function TeacherProfile() {
 
-    const [studentDetails, setStudentDetails] = useState({});
+    const [teacherDetails, setTeacherDetails] = useState({});
 
     useEffect(() => {
-        axios.get('studentDetails')
+        axios.get('teacherDetails')
             .then(res => res.data)
             .then(data => {
                 console.log(data);
-                setStudentDetails(data.rows[0]);
+                setTeacherDetails(data.rows[0]);
             })
             .catch((error) => {
                 console.log(error);
@@ -36,20 +36,20 @@ export default function StudentProfile() {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Student Name</td>
-                                    <td>: {studentDetails.std_name}</td>
+                                    <td>Teacher Name</td>
+                                    <td>: {teacherDetails.teacher_name}</td>
                                 </tr>
                                 <tr>
-                                    <td>Registration No.</td>
-                                    <td>: {studentDetails.reg_no}</td>
+                                    <td>Teacher ID</td>
+                                    <td>: {teacherDetails.teacher_id}</td>
                                 </tr>
                                 <tr>
                                     <td>Email</td>
-                                    <td>: {studentDetails.std_email}</td>
+                                    <td>: {teacherDetails.teacher_email}</td>
                                 </tr>
                                 <tr>
                                     <td>Department</td>
-                                    <td>: {studentDetails.dept_name}</td>
+                                    <td>: {teacherDetails.dept_name}</td>
                                 </tr>
                             </tbody>
                         </table>

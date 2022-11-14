@@ -251,6 +251,7 @@ export default function CourseEvaluationEntry() {
                           type="numeric"
                           name="total_class"
                           value={totalClass || ''}
+                          required
                           onChange={(event) => { handleChangeTotalClass(event) }}
                         />
                       </td>
@@ -259,6 +260,7 @@ export default function CourseEvaluationEntry() {
                           type="numeric"
                           name="class_attendance"
                           value={item.class_attendance || ''}
+                          required
                           onChange={(event) => { handleChangeMark(event, key) }}
                         />
                       </td>
@@ -267,6 +269,7 @@ export default function CourseEvaluationEntry() {
                           type="numeric"
                           name="term_test"
                           value={item.term_test || ''}
+                          required
                           onChange={(event) => { handleChangeMark(event, key) }}
                         />
                       </td>
@@ -275,6 +278,7 @@ export default function CourseEvaluationEntry() {
                           type="numeric"
                           name="class_assessment"
                           value={item.class_assessment || ''}
+                          required
                           onChange={(event) => { handleChangeMark(event, key) }}
                         />
                       </td>

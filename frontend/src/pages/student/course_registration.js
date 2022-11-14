@@ -1,8 +1,18 @@
 import axios from 'axios';
-import React, { useState } from 'react'
-import Navbar from '../../components/navbar'
+import React, { useState } from 'react';
+import Navbar from '../../components/navbar';
+import { ApprovalStatus } from './approval_status';
 
-import './style/course_registration.css'
+import './style/course_registration.css';
+
+import {
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    DialogContentText,
+    Dialog,
+    Button
+} from '@mui/material';
 
 export default function CourseRegistration() {
 
@@ -18,6 +28,16 @@ export default function CourseRegistration() {
 
     const [disabledButton, setDisabledButton] = useState(false);
     const [disabledButtonDrop, setDisabledButtonDrop] = useState(false);
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     // Regular 
     const handleChangeRegular = (event) => {
@@ -105,7 +125,7 @@ export default function CourseRegistration() {
             })
             .catch(error => {
                 if (error.response.status === 401) {
-                    
+
                     console.log(error.response.data.message);
                 }
                 else if (error.response.status === 400) {
@@ -380,7 +400,29 @@ export default function CourseRegistration() {
                             <div>
                                 <button onClick={handleSubmit}>Save</button>
                                 <button>Fees</button>
-                                <button>Approval Status</button>
+                                <button className='editProfileButton'
+                                    onClick={handleClickOpen}>Approval Status</button>
+
+                                <Dialog open={open} onClose={handleClose}>
+                                    <DialogTitle>
+                                        Course Registration Application Status
+                                    </DialogTitle>
+
+                                    <DialogContent>
+                                        <DialogContentText>
+                                            <ApprovalStatus />
+                                        </DialogContentText>
+                                    </DialogContent>
+
+                                    <DialogActions>
+                                        <Button onClick={handleClose} color="primary">
+                                            Close
+                                        </Button>
+                                        {/* <Button onClick={handleClose} color="primary" autoFocus>
+                                            Yes
+                                        </Button> */}
+                                    </DialogActions>
+                                </Dialog>
                             </div>
                             <div>
                                 Registered Courses List

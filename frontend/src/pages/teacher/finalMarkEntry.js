@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { TeacherNavbar } from "../../components/navbar";
-import "./style/courseEvaluationEntry.css";
+import "./style/finalMarkEntry.css";
 
 export default function CourseEvaluationEntry() {
   var department = "Institute of Information and Communication Technology";
@@ -263,7 +263,7 @@ export default function CourseEvaluationEntry() {
               </div>
 
               <form onSubmit={postFinalMarkEntry}>
-                <table>
+                <table className="table1">
                   <thead>
                     <tr>
                       <th>SL</th>
@@ -284,6 +284,7 @@ export default function CourseEvaluationEntry() {
                             type="numeric"
                             name='part'
                             value={item.part || ''}
+                            required
                             onChange={(event) => { handleChangeMark(event, key) }}
                           />
                         </td>
@@ -312,7 +313,7 @@ export default function CourseEvaluationEntry() {
             </div>
 
             <form onSubmit={postFinalMarkEntry}>
-              <table>
+              <table className="table1">
                 <thead>
                   <tr>
                     <th>SL</th>
@@ -333,6 +334,7 @@ export default function CourseEvaluationEntry() {
                           type="numeric"
                           name='total_mark'
                           value={item.total_mark || ''}
+                          required
                           onChange={(event) => { handleChangeMark(event, key) }}
                         />
                       </td>

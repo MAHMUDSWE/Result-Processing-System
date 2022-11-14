@@ -1,0 +1,45 @@
+.ApprovalStatus-section {
+    background-color: #B8CFEE;
+}
+
+.ApprovalStatus-container {
+    align-items: center;
+    text-align: center;
+    background-color: #B8CFEE;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin: auto;
+    padding: 0 0;
+    width: 100%;
+
+    position: fixed;
+    position: relative;
+    margin-top: 10px;
+}
+
+.ApprovalStatus-container .ApprovalStatus-heading {
+    background-color: #393939;
+    color: white;
+    border-radius: 4px 4px 0 0;
+    padding: 2px 0;
+}
+
+.ApprovalStatus-container table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.ApprovalStatus-container table td,
+.ApprovalStatus-container table th {
+    color: black;
+    text-align: left;
+    padding: 8px;
+}
+
+.ApprovalStatus-section .tableApplicationDate {
+    margin-left: 5px;
+    width: 50%;
+    color: black;
+}

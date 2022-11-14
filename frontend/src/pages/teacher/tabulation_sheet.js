@@ -1,6 +1,7 @@
-import React, { useState } from "react";
 import axios from "axios";
+import React, { useState } from "react";
 import { TeacherNavbar } from "../../components/navbar";
+import { PaginatedItemsLetterGrade } from "./pagination";
 import "./style/course_report_total_mark.css";
 
 export default function TabulationSheet() {
@@ -17,8 +18,6 @@ export default function TabulationSheet() {
     const [listOfAssignedCourses, setListOfAssignedCourses] = useState([{}]);
 
     const [open, setOpen] = useState(false);
-
-    const [openTheory, setOpenTheory] = useState(false);
 
     const [listOfStudent, setListOfStudent] = useState([{}]);
 
@@ -76,6 +75,7 @@ export default function TabulationSheet() {
         setListOfStudent([{}]);
 
         var { course_id, course_type, semester, session } = inputCourse;
+        console.log(inputCourse);
 
         var endPoint;
         if (course_type === "Theory") {
@@ -104,9 +104,6 @@ export default function TabulationSheet() {
                     })
                     setListOfStudent(listOfStudent);
 
-                    if (inputCourse.course_type === "Theory") {
-                        setOpenTheory(true);
-                    }
                     setOpen(true);
                     console.log(listOfStudent);
                 }
@@ -126,67 +123,64 @@ export default function TabulationSheet() {
 
             <div className="CourseEvaluationEntry-container">
                 <div className="CourseEvaluationEntry-heading">
-                    <h3>Tabulation Sheet</h3>
+                    <h3>Course Report Grade Wise</h3>
                 </div> */}
             {open ? (
                 <div>
-                    <div className="CourseEvaluationEntry-container">
-                        <div className="CourseEvaluationEntry-heading">
-                            <h3>Tabulation Sheet</h3>
-                        </div>
+                    <div className="CourseReportTotalMark-container">
+
                         <div>
+                            <div className="CourseEvaluationEntry-heading">
+                                <h3>Tabulation Sheet</h3>
+                            </div>
+                            <div className="Profile-info-container">
+                                <table className="table2">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Course ID</td>
+                                            <td>: {inputCourse.course_id}</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Course Title</td>
+                                            <td>: {inputCourse.course_title}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Course Credit</td>
+                                            <td>: {listOfStudent[0].course_credits}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Semester</td>
+                                            <td>: {inputCourse.semester}</td>
+                                            <td>Session</td>
+                                            <td>: {inputCourse.session}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Degree Name</td>
+                                            <td>: {degreeName}</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Department</td>
+                                            <td>: {department}</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
-                            {openTheory ? (
-                                <div>
-                                    <h3>Course Wise Exam Marks Information</h3>
-                                    <div className="Profile-info-container">
-                                        <table className="table2">
-                                            <thead>
-                                                <tr>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Course ID</td>
-                                                    <td>: {inputCourse.course_id}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Course Title</td>
-                                                    <td>: {inputCourse.course_title}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Course Credit</td>
-                                                    <td>: {listOfStudent[0].course_credits}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Semester</td>
-                                                    <td>: {inputCourse.semester}</td>
-                                                    <td>Session</td>
-                                                    <td>: {inputCourse.session}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Degree Name</td>
-                                                    <td>: {degreeName}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Department</td>
-                                                    <td>: {department}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                    <table className="table1">
+                            {/* <table className="table1">
                                         <thead>
                                             <tr>
                                                 <th>SL</th>
@@ -211,86 +205,14 @@ export default function TabulationSheet() {
                                             )}
 
                                         </tbody>
-                                    </table>
-                                </div>
-                            ) : (<div>
+                                    </table> */}
 
-                                <div className="Profile-info-container">
-                                    <table className="table2">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Course ID</td>
-                                                <td>: {inputCourse.course_id}</td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Course Title</td>
-                                                <td>: {inputCourse.course_title}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Course Credit</td>
-                                                <td>: {listOfStudent[0].course_credits}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Semester</td>
-                                                <td>: {inputCourse.semester}</td>
-                                                <td>Session</td>
-                                                <td>: {inputCourse.session}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Degree Name</td>
-                                                <td>: {degreeName}</td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Department</td>
-                                                <td>: {department}</td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <table className="table1">
-                                    <thead>
-                                        <tr>
-                                            <th>SL</th>
-                                            <th>Registration No.</th>
-                                            <th>Student's Name</th>
-                                            <th>Grade Point</th>
-                                            <th>Letter Grade</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {listOfStudent.filter((values) => values.course_id !== undefined).map((item, key) => (
-
-                                            <tr key={key}>
-                                                <td>{key + 1}</td>
-                                                <td>{item.reg_no}</td>
-                                                <td>{item.std_name}</td>
-                                                <td>{item.gpa}</td>
-                                                <td>{item.letter_grade}</td>
-                                            </tr>
-                                        )
-                                        )}
-                                    </tbody>
-                                </table>
-                            </div>)}
+                            <PaginatedItemsLetterGrade itemsPerPage={20} listOfStudent={listOfStudent} />
                         </div>
                     </div>
                 </div>
             )
+
                 : (
                     (
                         <div>
@@ -347,7 +269,14 @@ export default function TabulationSheet() {
                                         <div>
                                             <select name="course_title" onChange={handleInputCourse}>
                                                 <option value="">List of Assigned Courses</option>
-                                                {listOfAssignedCourses.filter((values) => values.course_id !== undefined).map((item, key) => (
+                                                {listOfAssignedCourses.filter((values) => {
+                                                    if (values.course_id === undefined || values.part === "B") {
+                                                        return false;
+                                                    }
+                                                    else {
+                                                        return true;
+                                                    }
+                                                }).map((item, key) => (
                                                     <option key={key} value={item.course_id}>{item.course_title}</option>
                                                 )
                                                 )}
@@ -372,14 +301,13 @@ export default function TabulationSheet() {
                                 </div> */}
                                         <button className="button">Submit</button>
                                     </form>
-
                                 </div>
                             </div>
                         </div>
                     )
                 )
             }
-            {/* </div > */}
-        </div >
+            {/* </div> */}
+        </div>
     );
 }

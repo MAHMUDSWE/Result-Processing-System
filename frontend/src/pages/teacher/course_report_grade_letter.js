@@ -214,7 +214,7 @@ export default function CourseReportGrade() {
                                         </tbody>
                                     </table> */}
 
-                                    <PaginatedItemsLetterGrade itemsPerPage={3} listOfStudent={listOfStudent} />
+                                    <PaginatedItemsLetterGrade itemsPerPage={20} listOfStudent={listOfStudent} />
                                 </div>
                             ) : (<div>
                                 <div className="CourseEvaluationEntry-heading">
@@ -292,7 +292,7 @@ export default function CourseReportGrade() {
                                     </tbody>
                                 </table> */}
 
-                                <PaginatedItemsLetterGrade itemsPerPage={3} listOfStudent={listOfStudent} />
+                                <PaginatedItemsLetterGrade itemsPerPage={20} listOfStudent={listOfStudent} />
 
                             </div>)}
                         </div>
@@ -356,7 +356,14 @@ export default function CourseReportGrade() {
                                         <div>
                                             <select name="course_title" onChange={handleInputCourse}>
                                                 <option value="">List of Assigned Courses</option>
-                                                {listOfAssignedCourses.filter((values) => values.course_id !== undefined).map((item, key) => (
+                                                {listOfAssignedCourses.filter((values) => {
+                                                    if (values.course_id === undefined || values.part === "B") {
+                                                        return false;
+                                                    }
+                                                    else {
+                                                        return true;
+                                                    }
+                                                }).map((item, key) => (
                                                     <option key={key} value={item.course_id}>{item.course_title}</option>
                                                 )
                                                 )}

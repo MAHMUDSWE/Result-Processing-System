@@ -2,16 +2,49 @@ const db = require('../models/project350.model');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+
+const getTeacherDetails = (req, res) => {
+    var teacher_id = req.teacher_id;
+
+    console.log(teacher_id);
+
+    var query = "select * from tbl_teacher natural join tbl_department where teacher_id = ? "
+
+    try {
+        db.query(query, [teacher_id], (err, rows, fields) => {
+            if (!err) {
+                res.status(200).json({
+                    "message": `Details from ${rows[0].teacher_name}`,
+                    rows,
+                });
+            }
+            else {
+                res.status(400).json({
+                    "message": "Request failed",
+                    err,
+                });
+            }
+        });
+    } catch (error) {
+        res.status(400).json({
+            "message": "Internal Server error",
+            err,
+        });
+    }
+}
+
 const getAssignedCourseList = (req, res) => {
 
-    var { teacher_id, USN, semester } = req.query;
+    var { USN, semester } = req.query;
+
+    var teacher_id = req.teacher_id;
 
     var query = "SELECT course_id, course_title, course_type, semester, session, part FROM tbl_teach NATURAL JOIN tbl_course WHERE teacher_id = ? AND USN = ? AND semester = ? ";
 
     db.query(query, [teacher_id, USN, semester], (err, rows, fields) => {
         if (!err) {
             res.status(200).json({
-                "success": `List of courses Assigned`,
+                "message": `List of courses Assigned`,
                 rows,
             });
         }
@@ -33,7 +66,7 @@ const getTakenCourseStudentList = (req, res) => {
     db.query(query, [course_id, semester, session], (err, rows, fields) => {
         if (!err) {
             res.status(200).json({
-                "success": `List of Student who has taken course ${course_id}`,
+                "message": `List of Student who has taken course ${course_id}`,
                 rows,
             });
         }
@@ -48,7 +81,9 @@ const getTakenCourseStudentList = (req, res) => {
 
 const postCourseEvaluationMarkEntry = (req, res) => {
 
-    var { inputs, teacher_id, total_class } = req.body;
+    var { inputs, total_class } = req.body;
+
+    var teacher_id = req.teacher_id;
 
     var values = [];
     inputs.map((item) => {
@@ -98,7 +133,9 @@ const postCourseEvaluationMarkEntry = (req, res) => {
 
 const postLabFinalMarkEntry = (req, res) => {
 
-    var { inputs, teacher_id } = req.body;
+    var { inputs } = req.body;
+
+    var teacher_id = req.teacher_id;
 
     var values = [];
 
@@ -135,7 +172,9 @@ const postLabFinalMarkEntry = (req, res) => {
 
 const putPartAMark = (req, res) => {
 
-    var { inputs, teacher_id } = req.body;
+    var { inputs } = req.body;
+
+    var teacher_id = req.teacher_id;
 
     var values = [];
     let queires = '';
@@ -183,7 +222,9 @@ const putPartAMark = (req, res) => {
 
 const putPartBMark = (req, res) => {
 
-    var { inputs, teacher_id } = req.body;
+    var { inputs } = req.body;
+
+    var teacher_id = req.teacher_id;
 
     var values = [];
     let queires = '';
@@ -280,7 +321,7 @@ const getTheoryCourseFinalMarkList = (req, res) => {
     db.query(query, [course_id, semester, session], (err, rows, fields) => {
         if (!err) {
             res.status(200).json({
-                "success": `Course Wise Exam marks Information`,
+                "message": `Course Wise Exam marks Information`,
                 rows,
             });
         }
@@ -399,7 +440,7 @@ const teacherLogin = async (req, res) => {
             if (results) {
                 res.status(200).json({
                     message: "Log in Successful",
-                    token
+                    "access_token": token
                 })
             } else {
                 res.status(401).json({
@@ -417,6 +458,7 @@ const teacherLogin = async (req, res) => {
 
 
 module.exports = {
+    getTeacherDetails,
     getAssignedCourseList,
     getTakenCourseStudentList,
     postCourseEvaluationMarkEntry,

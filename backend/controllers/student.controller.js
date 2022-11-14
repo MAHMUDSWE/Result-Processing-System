@@ -4,29 +4,40 @@ const jwt = require("jsonwebtoken");
 
 const getStudentDetails = (req, res) => {
 
-    var { reg_no } = req.body;
+    var reg_no = req.reg_no;
 
-    var query = "select * from tbl_student where reg_no = ? "
+    console.log(reg_no);
 
-    db.query(query, [reg_no], (err, rows, fields) => {
-        if (!err) {
-            res.status(200).json({
-                "success": `Details from ${rows[0].std_name}`,
-                rows,
-            });
-        }
-        else {
-            res.status(400).json({
-                "message": "Request failed",
-                err,
-            });
-        }
-    });
+    var query = "select * from tbl_student natural join tbl_department where reg_no = ? "
+
+    try {
+        db.query(query, [reg_no], (err, rows, fields) => {
+            if (!err) {
+                res.status(200).json({
+                    "message": `Details from ${rows[0].std_name}`,
+                    rows,
+                });
+            }
+            else {
+                res.status(400).json({
+                    "message": "Request failed",
+                    err,
+                });
+            }
+        });
+    } catch (error) {
+        res.status(400).json({
+            "message": "Internal Server error",
+            err,
+        });
+    }
 }
 
 const getCourseOfferList = (req, res) => {
 
-    var { dept_id, usn, semester } = req.query;
+    var { usn, semester } = req.query;
+
+    let dept_id = req.dept_id;
 
     var query = "SELECT * FROM tbl_offer NATURAL JOIN tbl_course WHERE dept_id = ? AND USN = ? AND semester = ?";
 
@@ -49,7 +60,9 @@ const getCourseOfferList = (req, res) => {
 
 const getDropCourseList = (req, res) => {
 
-    var { dept_id, session, semester } = req.query;
+    var { session, semester } = req.query;
+
+    let dept_id = req.dept_id;
 
     var query = "SELECT * FROM tbl_offer NATURAL JOIN tbl_course WHERE dept_id = ? AND session = ? AND semester = ?";
 
@@ -73,8 +86,10 @@ const postRegisterCourse = (req, res) => {
     var input = req.body;
     var values = [];
 
+    let reg_no = req.reg_no;
+
     input.course_list.map((course) => {
-        values.push([input.reg_no, course.course_id, course.semester, course.session, course.USN]);
+        values.push([reg_no, course.course_id, course.semester, course.session, course.USN]);
     })
 
     console.log(values);

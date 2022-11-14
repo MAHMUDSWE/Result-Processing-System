@@ -3,6 +3,9 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require('morgan');
 
+const jwtAuthentication = require('./middlewares/jwt.middleware');
+const errorHandling = require('./middlewares/errorHandling.middleware');
+
 const app = express();
 
 const adminRoute = require("./routes/admin.route");
@@ -14,6 +17,8 @@ app.use(bodyParser.json());
 app.use(morgan('tiny'));
 app.use(cors());
 
+app.use(jwtAuthentication);
+app.use(errorHandling);
 
 app.use(adminRoute);
 app.use(studentRoute);

@@ -10,11 +10,13 @@ const {
     getLabCourseFinalMarkList,
     getTheoryCourseFinalMarkList,
     teacherSignUp,
-    teacherLogin
+    teacherLogin,
+    getTeacherDetails
 } = require('../controllers/teacher.controller');
 
 const router = express();
 
+router.get('/teacherDetails', getTeacherDetails);
 
 router.get('/assignedCourse', getAssignedCourseList);
 

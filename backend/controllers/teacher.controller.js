@@ -335,6 +335,66 @@ const getTheoryCourseFinalMarkList = (req, res) => {
     })
 }
 
+const getTeacherApprovalDetails = (req, res) => {
+    var { semester, usn } = req.query;
+    var { teacher_id, dept_id } = req;
+
+    console.log(semester, usn, teacher_id, dept_id);
+
+    var query = `SELECT *, tbl_student.std_name FROM tbl_approval_status, tbl_student
+    WHERE
+    tbl_approval_status.reg_no = tbl_student.reg_no
+    and
+    semester = "${semester}" AND USN = "${usn}" AND
+    tbl_approval_status.reg_no IN (SELECT tbl_student.reg_no FROM tbl_student WHERE tbl_student.dept_id = ${dept_id})`;
+
+    db.query(query, (err, rows) => {
+        if (!err) {
+            res.status(200).json({
+                "message": "List of Students",
+                rows
+            })
+        } else {
+            res.status(200).json({
+                "message": "List of students get failed",
+                err
+            })
+        }
+    })
+
+}
+
+const putTeacherApproval = (req, res) => {
+    var { reg_no, semester, USN, Department_Head_Status } = req.body;
+
+    let teacher_id = req.teacher_id;
+    let dept_id = req.dept_id;
+    let Department_Head_Approved_Date = new Date().toISOString();
+    console.log(req.body);
+    console.log(req.teacher_id, req.dept_id);
+
+    var query = `UPDATE tbl_approval_status SET Department_Head = (SELECT teacher_name FROM tbl_teacher WHERE teacher_id = ${teacher_id}),
+        Department_Head_Status = "${Department_Head_Status}", Department_Head_Approved_Date = "${Department_Head_Approved_Date}"
+        WHERE reg_no = ${reg_no} AND semester = "${semester}" AND USN = "${USN}"
+        AND ${dept_id} = (SELECT dept_id FROM tbl_student WHERE reg_no = ${reg_no})
+        `;
+    console.log(query);
+
+    db.query(query, (err, result) => {
+        if (!err) {
+            res.status(200).json({
+                "message": "Teacher Approval Status updated successfully",
+                result
+            })
+        } else {
+            res.status(200).json({
+                "message": "Teacher Approval status update failed",
+                err
+            })
+        }
+    })
+}
+
 
 const teacherSignUp = async (req, res) => {
     let { password, confirm_password } = req.body;
@@ -417,12 +477,12 @@ const teacherLogin = async (req, res) => {
         });
     }
 
-    var query = 'SELECT teacher_id, dept_id, password FROM tbl_teacher WHERE teacher_id = ?'
+    var query = 'SELECT teacher_id, dept_id, designation, password FROM tbl_teacher WHERE teacher_id = ?'
 
     db.query(query, [teacher_id], async (err, result) => {
         if (!err) {
             var hashedPassword = result[0].password;
-            let dept_id = result[0].dept_id;
+            let { dept_id, designation } = result[0];
 
             let results = await bcrypt.compare(password, hashedPassword);
 
@@ -430,7 +490,8 @@ const teacherLogin = async (req, res) => {
 
             let data = {
                 teacher_id,
-                dept_id
+                dept_id,
+                designation
             };
             let expiresIn = {
                 expiresIn: "24h"
@@ -469,6 +530,8 @@ module.exports = {
     getCourseWiseAttendaceAndEvaluation,
     getLabCourseFinalMarkList,
     getTheoryCourseFinalMarkList,
+    getTeacherApprovalDetails,
+    putTeacherApproval,
     teacherSignUp,
     teacherLogin
 }

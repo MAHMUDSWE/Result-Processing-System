@@ -87,13 +87,26 @@ const postRegisterCourse = (req, res) => {
     var values = [];
 
     let reg_no = req.reg_no;
+    let session = req.session;
+
+    let { semester, USN } = input.course_list[0];
+
+    let application_date = new Date().toISOString();
 
     input.course_list.map((course) => {
         values.push([reg_no, course.course_id, course.semester, course.session, course.USN]);
     })
 
-    console.log(values);
-    var query = "insert into tbl_takes values ?";
+    // console.log(values);
+    // console.log(application_date.split("T")[0]);
+
+    var query = "insert into tbl_takes values ? ; ";
+
+    query = query + `INSERT INTO tbl_approval_status(reg_no, semester, session, USN, Application_Date)
+VALUES
+(${reg_no}, "${semester}", "${session}", "${USN}", "${application_date}");`;
+
+    console.log(query);
 
     db.query(query, [values], (err, result) => {
         if (!err) {
@@ -107,6 +120,37 @@ const postRegisterCourse = (req, res) => {
                 "message": "course registration failed",
                 err
             })
+        }
+    })
+}
+
+const getApprovalStatus = (req, res) => {
+    let reg_no = req.reg_no;
+    let { semester, usn } = req.query;
+
+    var query = `select *, DATE_FORMAT(Application_Date,'%Y-%m-%d') AS ApplicationDate,
+    DATE_FORMAT(Department_Head_Approved_Date,'%Y-%m-%d') AS dpt_Head_Approved_Date
+     from tbl_approval_status where reg_no = ? and semester = ? and usn = ?`;
+
+    db.query(query, [reg_no, semester, usn], (err, rows) => {
+        console.log(rows);
+        if (!err && rows.length > 0) {
+            res.status(200).json({
+                "message": `Registration Approval Status`,
+                rows
+            });
+        }
+        else if (!err && rows.length === 0) {
+            res.status(200).json({
+                "message": 'Not found',
+                rows
+            })
+        }
+        else {
+            res.status(400).json({
+                "message": "Registration Status get failed",
+                err,
+            });
         }
     })
 }
@@ -193,12 +237,12 @@ const studentLogin = async (req, res) => {
     }
 
 
-    var query = 'SELECT reg_no, dept_id, password FROM tbl_student WHERE reg_no = ?'
+    var query = 'SELECT reg_no, dept_id, session, password FROM tbl_student WHERE reg_no = ?'
 
     db.query(query, [reg_no], async (err, result) => {
         if (!err) {
             var hashedPassword = result[0].password;
-            let dept_id = result[0].dept_id;
+            let { dept_id, session } = result[0];
 
             let results = await bcrypt.compare(password, hashedPassword);
 
@@ -206,7 +250,8 @@ const studentLogin = async (req, res) => {
 
             let data = {
                 reg_no,
-                dept_id
+                dept_id,
+                session
             };
             let expiresIn = {
                 expiresIn: "24h"
@@ -239,6 +284,7 @@ module.exports = {
     getCourseOfferList,
     getDropCourseList,
     postRegisterCourse,
+    getApprovalStatus,
     studentSignUp,
     studentLogin
 };

@@ -11,7 +11,9 @@ const {
     getTheoryCourseFinalMarkList,
     teacherSignUp,
     teacherLogin,
-    getTeacherDetails
+    getTeacherDetails,
+    putTeacherApproval,
+    getTeacherApprovalDetails
 } = require('../controllers/teacher.controller');
 
 const router = express();
@@ -35,6 +37,10 @@ router.get('/courseWiseAttendaceAndEvaluation', getCourseWiseAttendaceAndEvaluat
 router.get('/labCourseFinalMarkList', getLabCourseFinalMarkList);
 
 router.get('/theoryCourseFinalMarkList', getTheoryCourseFinalMarkList);
+
+router.get('/teacherApproval', getTeacherApprovalDetails);
+
+router.put('/teacherApproval', putTeacherApproval);
 
 router.put('/teacher_signup', teacherSignUp);
 

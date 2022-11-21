@@ -6,10 +6,17 @@ const {
     postCreateDepartment,
     postOfferCourse,
     assignCourseTeacher,
-    getCourseList
+    getCourseList,
+    adminSignUp,
+    adminLogin,
+    getAdminDetails,
+    getControllerApprovalDetails,
+    putAdminApproval
 } = require("../controllers/admin.controller");
 
 const router = express();
+
+router.get('/adminDetails', getAdminDetails);
 
 router.get('/getCourse', getCourseList);
 
@@ -24,5 +31,13 @@ router.post("/teacherDetailsEntry", postTeacherDetails);
 router.post("/createOfferCourse", postOfferCourse);
 
 router.post("/assignCourse", assignCourseTeacher);
+
+router.get('/adminApproval', getControllerApprovalDetails);
+
+router.put('/adminApproval', putAdminApproval);
+
+router.put('/adminstrator_signup', adminSignUp);
+
+router.post('/admin_login', adminLogin);
 
 module.exports = router;

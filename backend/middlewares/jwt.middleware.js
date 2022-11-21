@@ -22,7 +22,7 @@ function isPublicRoute(req) {
         console.log("inside");
         return true;
     }
-    else if (req.originalUrl == "/admin_signup") {
+    else if (req.originalUrl == "/adminstrator_signup") {
         console.log("inside");
         return true;
     }
@@ -51,16 +51,22 @@ const jwtAuthentication = (req, res, next) => {
         const data = jwt.verify(token, jwtSecretKey);
 
         console.log(data);
-        const { reg_no, teacher_id, dept_id } = data;
+        const { reg_no, teacher_id, admin_id, dept_id, session, designation } = data;
 
         req.dept_id = dept_id;
-        
+
         if (reg_no !== undefined) {
             req.reg_no = reg_no;
+            req.session = session
         }
 
         else if (teacher_id !== undefined) {
             req.teacher_id = teacher_id;
+            req.designation = designation;
+        }
+        else if (admin_id !== undefined) {
+            req.admin_id = admin_id;
+            req.designation = designation;
         }
         console.log(teacher_id);
 

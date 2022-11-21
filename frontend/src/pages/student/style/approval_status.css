@@ -33,6 +33,7 @@
 
 .ApprovalStatus-container table td,
 .ApprovalStatus-container table th {
+    /* border: 1px solid black; */
     color: black;
     text-align: left;
     padding: 8px;
@@ -40,6 +41,6 @@
 
 .ApprovalStatus-section .tableApplicationDate {
     margin-left: 5px;
-    width: 50%;
+    width: 70%;
     color: black;
 }

@@ -181,6 +181,10 @@ export default function CourseRegistration() {
     const handleSubmit = (event) => {
         event.preventDefault();
 
+        if (!window.confirm("Are you sure to register?")) {
+            return;
+        }
+
         axios.post("/registerCourse", {
             // reg_no: 2018831069,
             course_list: listOfCourses.filter((values) => values.course_id !== undefined)
@@ -410,7 +414,7 @@ export default function CourseRegistration() {
 
                                     <DialogContent>
                                         <DialogContentText>
-                                            <ApprovalStatus />
+                                            <ApprovalStatus inputs={inputsRegular} />
                                         </DialogContentText>
                                     </DialogContent>
 

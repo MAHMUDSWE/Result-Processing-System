@@ -1,0 +1,59 @@
+.approve {
+    background-color: #4CAF50;
+
+    /* border: none;
+    color: white;
+    padding: 8px 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+
+    border-radius: 5px;
+
+    text-transform: uppercase;
+    transition: transform 80ms ease-in; */
+
+    color: white;
+    padding: 2px 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+
+    border: 2px solid black;
+    box-shadow: 2px 2px 2px black;
+}
+
+.approve:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.cancel {
+    background-color: #e64c4c;
+    color: white;
+    padding: 2px 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+
+    border: 2px solid black;
+    box-shadow: 2px 2px 2px black;
+}
+
+.cancel:hover {
+
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

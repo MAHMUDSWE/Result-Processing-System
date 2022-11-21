@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom';
 import HeaderSection from '../../components/header'
@@ -8,6 +9,7 @@ export default function AdminLogin() {
   const [inputs, setInputs] = useState({
     showPassword: false
   });
+  let [logMessage, setLogMessage] = useState("");
   let [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("adminstratorIsLoggedIn"));
 
   const logHandleChange = (event) => {
@@ -23,8 +25,36 @@ export default function AdminLogin() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    localStorage.setItem("adminstratorIsLoggedIn", "true");
-    setIsLoggedIn(localStorage.getItem("adminstratorIsLoggedIn"));
+    let { username, password } = inputs;
+
+    console.log(inputs);
+    axios.post('/admin_login', {
+      admin_id: username,
+      password
+    })
+      .then(res => res.data)
+      .then(data => {
+        console.log(data);
+        localStorage.setItem("access_token", data.access_token);
+        setLogMessage(data.message);
+        // localStorage.setItem("studentIsLoggedIn", "true");
+        // setIsLoggedIn(localStorage.getItem("studentIsLoggedIn"));
+
+        localStorage.setItem("adminstratorIsLoggedIn", "true");
+        setIsLoggedIn(localStorage.getItem("adminstratorIsLoggedIn"));
+      })
+      .catch(error => {
+        if (error.response.status === 401) {
+          setLogMessage(error.response.data.message);
+        }
+        else if (error.response.status === 400) {
+          setLogMessage(error.response.data.message);
+        }
+        else {
+          setLogMessage("Internal Server Error!");
+        }
+
+      })
   }
   return (
     <div className='Student-login-section'>
@@ -33,7 +63,7 @@ export default function AdminLogin() {
       </div>
 
       <div className='Admin-login-container'>
-        <p>Adminstrator Login</p>
+        <p>Exam Controller Login</p>
 
         <form onSubmit={handleSubmit}>
           <input
@@ -58,7 +88,7 @@ export default function AdminLogin() {
               onClick={handleClickShowPassword}
             /> Show Password</span>
           </div>
-
+          <span style={{ color: 'red' }}>{logMessage}</span>
           <button>Log In</button>
           <Link to='/recover'>Forgot your password?</Link>
           {isLoggedIn ? <Navigate to='/admin_workspace' replace /> : <h3> </h3>}

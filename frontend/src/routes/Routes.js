@@ -3,8 +3,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 import { AdminstratorLogout, StudentLogout, TeacherLogout } from '../components/logout'
 import AdminLogin from '../pages/admin/admin_login'
+import AdminProfile from '../pages/admin/admin_profile'
 import AdminWorkspace from '../pages/admin/admin_workspace'
 import AssignCourse from '../pages/admin/assignCourse'
+import AdminCourseRegistrationApproval from '../pages/admin/courseRegistrationApproval'
+
 import CreateCourse from '../pages/admin/create_course'
 import OfferCourse from '../pages/admin/offer_course'
 import StudentDetailsEntry from '../pages/admin/studentDetailsEntry'
@@ -16,6 +19,7 @@ import StudentLogin from '../pages/student/student_login'
 import StudentProfile from '../pages/student/student_profile'
 import StudentWorkspace from '../pages/student/student_workspace'
 import CourseEvaluationEntry from '../pages/teacher/courseEvaluationEntry'
+import CourseRegistrationApproval from '../pages/teacher/courseRegistrationApproval'
 import CourseReportGrade from '../pages/teacher/course_report_grade_letter'
 import CourseReportTotalMark from '../pages/teacher/course_report_total_mark'
 import FinalMarkEntry from '../pages/teacher/finalMarkEntry'
@@ -70,6 +74,11 @@ export default function PageRoutes() {
             <TeacherWorkspace />
           </TeacherRoutesProtection>} />
 
+          <Route path='/teacher_workspace/course_registration_approval' element={<TeacherRoutesProtection>
+            <CourseRegistrationApproval />
+          </TeacherRoutesProtection>}
+          />
+
           <Route path="/teacher_profile" element={<TeacherRoutesProtection>
             <TeacherProfile />
           </TeacherRoutesProtection>} />
@@ -99,6 +108,15 @@ export default function PageRoutes() {
           <Route path="/admin_workspace" element={<AdminRoutesProtection>
             <AdminWorkspace />
           </AdminRoutesProtection>} />
+
+          <Route path="/admin_profile" element={<AdminRoutesProtection>
+            <AdminProfile />
+          </AdminRoutesProtection>} />
+
+          <Route path='/admin_workspace/course_registration_approval' element={<AdminRoutesProtection>
+            <AdminCourseRegistrationApproval />
+          </AdminRoutesProtection>}
+          />
 
           <Route path="/admin_workspace/create_course" element={<AdminRoutesProtection>
             <CreateCourse />

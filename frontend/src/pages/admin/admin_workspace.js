@@ -21,6 +21,7 @@ export default function AdminWorkspace() {
             <Link to="/admin_workspace/student_entry"><FontAwesomeIcon icon={faEdit} /> Student Details Entry</Link>
             <Link to="/admin_workspace/teacher_entry"><FontAwesomeIcon icon={faEdit} /> Teacher Details Entry</Link>
             <Link to="/admin_workspace/assign_course_teacher"><FontAwesomeIcon icon={faEdit} /> Assign Course Teacher</Link>
+            <Link to="/admin_workspace/course_registration_approval"><FontAwesomeIcon icon={faEdit} />Course Registration Approval</Link>
             <Link to="/admin_workspace/final_course_report_mark" > <FontAwesomeIcon icon={faFileAlt} /> Course Report (Total Mark)</Link>
           </div>
         </div>

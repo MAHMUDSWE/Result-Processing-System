@@ -13,7 +13,9 @@ const {
     teacherLogin,
     getTeacherDetails,
     putTeacherApproval,
-    getTeacherApprovalDetails
+    getTeacherApprovalDetails,
+    getTabulationSheet,
+    getAllAssignedCourseList
 } = require('../controllers/teacher.controller');
 
 const router = express();
@@ -21,6 +23,8 @@ const router = express();
 router.get('/teacherDetails', getTeacherDetails);
 
 router.get('/assignedCourse', getAssignedCourseList);
+
+router.get('/allAssignedCourse', getAllAssignedCourseList);
 
 router.get('/takenCourse', getTakenCourseStudentList);
 
@@ -41,6 +45,8 @@ router.get('/theoryCourseFinalMarkList', getTheoryCourseFinalMarkList);
 router.get('/teacherApproval', getTeacherApprovalDetails);
 
 router.put('/teacherApproval', putTeacherApproval);
+
+router.get('/tabulationSheet', getTabulationSheet);
 
 router.put('/teacher_signup', teacherSignUp);
 

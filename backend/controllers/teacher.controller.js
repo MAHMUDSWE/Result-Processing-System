@@ -58,6 +58,31 @@ const getAssignedCourseList = (req, res) => {
 
 }
 
+const getAllAssignedCourseList = (req, res) => {
+
+    var { USN, semester } = req.query;
+
+    var teacher_id = req.teacher_id;
+
+    var query = `SELECT course_id, course_title, course_type, semester, session FROM tbl_offer NATURAL JOIN tbl_course WHERE USN = '${usn}' AND session = '${session}' AND dept_id = ${dept_id};`;
+
+    db.query(query, [teacher_id, USN, semester], (err, rows, fields) => {
+        if (!err) {
+            res.status(200).json({
+                "message": `List of all courses Assigned`,
+                rows,
+            });
+        }
+        else {
+            res.status(400).json({
+                "message": "Request failed",
+                err,
+            });
+        }
+    })
+
+}
+
 const getTakenCourseStudentList = (req, res) => {
     var { course_id, semester, session } = req.query;
 
@@ -395,6 +420,28 @@ const putTeacherApproval = (req, res) => {
     })
 }
 
+const getTabulationSheet = (req, res) => {
+    let { teacher_id, dept_id } = req;
+    let { usn, session } = req.query;
+
+    var query = `SELECT * FROM tbl_result WHERE tbl_result.session = "${session}" AND tbl_result.USN = '${usn}';`;
+
+    db.query(query, (err, rows) => {
+        // console.log(rows);
+
+        if (!err) {
+            res.status(200).json({
+                "message": "List of Students",
+                rows
+            })
+        } else {
+            res.status(200).json({
+                "message": "List of students get failed",
+                err
+            })
+        }
+    })
+}
 
 const teacherSignUp = async (req, res) => {
     let { password, confirm_password } = req.body;
@@ -522,6 +569,7 @@ const teacherLogin = async (req, res) => {
 module.exports = {
     getTeacherDetails,
     getAssignedCourseList,
+    getAllAssignedCourseList,
     getTakenCourseStudentList,
     postCourseEvaluationMarkEntry,
     postLabFinalMarkEntry,
@@ -532,6 +580,7 @@ module.exports = {
     getTheoryCourseFinalMarkList,
     getTeacherApprovalDetails,
     putTeacherApproval,
+    getTabulationSheet,
     teacherSignUp,
     teacherLogin
 }

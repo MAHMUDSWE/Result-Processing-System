@@ -15,8 +15,10 @@ import TeacherDetailsEntry from '../pages/admin/teacherDetailsEntry'
 import HomePage from '../pages/home'
 import Signup from '../pages/signup'
 import CourseRegistration from '../pages/student/course_registration'
+import StudentAdmitCard from '../pages/student/student_admitCard'
 import StudentLogin from '../pages/student/student_login'
 import StudentProfile from '../pages/student/student_profile'
+import StudentResultView from '../pages/student/student_resultView'
 import StudentWorkspace from '../pages/student/student_workspace'
 import CourseEvaluationEntry from '../pages/teacher/courseEvaluationEntry'
 import CourseRegistrationApproval from '../pages/teacher/courseRegistrationApproval'
@@ -66,6 +68,12 @@ export default function PageRoutes() {
 
           <Route path="/student_workspace/course_registration" element={<StudentsRoutesProtection>
             <CourseRegistration />
+          </StudentsRoutesProtection>} />
+          <Route path="/student_workspace/view_result" element={<StudentsRoutesProtection>
+            <StudentResultView />
+          </StudentsRoutesProtection>} />
+          <Route path="/student_workspace/admit_card" element={<StudentsRoutesProtection>
+            <StudentAdmitCard />
           </StudentsRoutesProtection>} />
 
           {/* ///////////////////////////////////////////////////////////////////////// */}

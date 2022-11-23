@@ -37,7 +37,8 @@ export default function TeacherWorkspace() {
             <Link to="/teacher_workspace/final_course_report_mark"><FontAwesomeIcon icon={faFileAlt} /> Course Report (Evaluation and Lab Mark)</Link>
             <Link to="/teacher_workspace/final_course_report_grade"><FontAwesomeIcon icon={faFileAlt} /> Course Report (Grade and Letter)</Link>
 
-            <Link to="/teacher_workspace/tabulation_sheet"><FontAwesomeIcon icon={faFileAlt} /> Tabulation Sheet </Link>
+            {isHeadTeacher && (<Link to="/teacher_workspace/tabulation_sheet"><FontAwesomeIcon icon={faFileAlt} /> Tabulation Sheet </Link>)}
+
 
           </div>
         </div>

@@ -138,9 +138,10 @@
     padding: 8px;
 }
 
-.table2{
+.table2 {
     width: 100%;
 }
+
 /* .table2 td,
 .table2 th {
     border: 1px solid #dddddd;
@@ -175,4 +176,9 @@
 .disabled {
     opacity: 0.6;
     cursor: not-allowed;
+}
+
+.spaceRemove {
+    margin: 0;
+    padding: 0;
 }

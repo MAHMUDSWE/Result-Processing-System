@@ -64,7 +64,7 @@ function ItemsControllerApproval({ currentItems, listOfStudent }) {
                             <td>{item.std_name}</td>
                             <td>{item.Department_Head}</td>
                             <td>{item.Department_Head_Status}</td>
-                            <td>{item.Department_Head_Approved_Date.split('T')[0]}</td>
+                            <td>{item.Department_Head_Approved_Date ? item.Department_Head_Approved_Date.split('T')[0] : "N/A"}</td>
                             <td>{item.Exam_Controller_Status ? item.Exam_Controller_Status : "N/A"}</td>
                             <td>
                                 {/* <button

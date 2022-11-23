@@ -155,6 +155,62 @@ const getApprovalStatus = (req, res) => {
     })
 }
 
+const getAdmitCards = async (req, res) => {
+    let reg_no = req.reg_no;
+    let { usn } = req.query;
+
+
+    let function1 = async () => {
+        let results = await new Promise((resolve, reject) => db.query(`SELECT * FROM tbl_approval_status WHERE reg_no = ${reg_no} AND USN = '${usn}';`, (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(rows);
+            }
+        }))
+        return results;
+    }
+
+    var result = await function1();
+    console.log(result);
+
+    if (result[0].Department_Head_Status === undefined || result[0].Department_Head_Status === 'DISAPPROVED' ||
+        result[0].Exam_Controller_Status === undefined || result[0].Exam_Controller_Status === 'DISAPPROVED') {
+        return res.status(401).json({
+            "message": `Course Registration is Disaproved.`,
+        });
+    }
+
+    var query = `SELECT tbl_takes.reg_no, tbl_takes.course_id, tbl_takes.semester, tbl_takes.session as 'courseSession', tbl_takes.USN,
+                 tbl_student.std_name, tbl_student.session,
+                 tbl_course.course_title, tbl_course.course_credits, tbl_course.course_type
+                 FROM tbl_takes, tbl_student, tbl_course
+                 WHERE tbl_takes.reg_no = tbl_student.reg_no and tbl_takes.course_id = tbl_course.course_id 
+                 and tbl_takes.reg_no = ${reg_no} AND tbl_takes.USN = "${usn}";`;
+
+    db.query(query, (err, rows) => {
+
+        if (!err && rows.length > 0) {
+            res.status(200).json({
+                "message": `List of Courses in admit card`,
+                rows
+            });
+        }
+        else if (!err && rows.length === 0) {
+            res.status(200).json({
+                "message": 'Not found',
+                rows
+            })
+        }
+        else {
+            res.status(400).json({
+                "message": "Course list get failed",
+                err,
+            });
+        }
+    })
+}
+
 const studentSignUp = async (req, res) => {
     let { password, confirm_password } = req.body;
     let reg_no = req.body.username;
@@ -285,6 +341,7 @@ module.exports = {
     getDropCourseList,
     postRegisterCourse,
     getApprovalStatus,
+    getAdmitCards,
     studentSignUp,
     studentLogin
 };

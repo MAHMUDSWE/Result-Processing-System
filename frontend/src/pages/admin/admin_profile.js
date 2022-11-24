@@ -3,9 +3,28 @@ import React, { useEffect, useState } from 'react';
 import { AdminNavbar } from '../../components/navbar';
 import './style/admin_profile.css';
 
+import {
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    DialogContentText,
+    Dialog,
+    Button
+} from '@mui/material';
+import ChangePassword from '../changePassword';
+
 export default function AdminProfile() {
 
     const [adminDetails, setAdminDetails] = useState({});
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     useEffect(() => {
         axios.get('adminDetails')
@@ -57,7 +76,26 @@ export default function AdminProfile() {
                 </div>
 
                 <div className='ChangePassword-container'>
-                    <button>Change Password</button>
+                    <button className='editProfileButton'
+                        onClick={handleClickOpen}>Change Password</button>
+
+                    <Dialog open={open} onClose={handleClose}>
+                        <DialogTitle>
+                            {/* Change Password */}
+                        </DialogTitle>
+
+                        <DialogContent>
+                            <DialogContentText>
+                                <ChangePassword role={"adminstrator"} />
+                            </DialogContentText>
+                        </DialogContent>
+
+                        <DialogActions>
+                            <Button onClick={handleClose} color="primary">
+                                Close
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                 </div>
             </div>
         </div>

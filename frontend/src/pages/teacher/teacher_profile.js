@@ -1,12 +1,27 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import Navbar from '../../components/navbar'
-import './style/teacher_profile.css'
+import React, { useEffect, useState } from 'react';
+import { TeacherNavbar } from '../../components/navbar';
+import './style/teacher_profile.css';
+
+import {
+    Button, Dialog, DialogActions,
+    DialogContent, DialogContentText, DialogTitle
+} from '@mui/material';
+import ChangePassword from '../changePassword';
 
 export default function TeacherProfile() {
 
     const [teacherDetails, setTeacherDetails] = useState({});
 
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
     useEffect(() => {
         axios.get('teacherDetails')
             .then(res => res.data)
@@ -21,7 +36,7 @@ export default function TeacherProfile() {
 
     return (
         <div>
-            <Navbar />
+            <TeacherNavbar />
             <div className='Profile-section'>
 
                 <div className='Profile-info-container'>
@@ -57,7 +72,26 @@ export default function TeacherProfile() {
                 </div>
 
                 <div className='ChangePassword-container'>
-                    <button>Change Password</button>
+                    <button className='editProfileButton'
+                        onClick={handleClickOpen}>Change Password</button>
+
+                    <Dialog open={open} onClose={handleClose}>
+                        <DialogTitle>
+                            {/* Change Password */}
+                        </DialogTitle>
+
+                        <DialogContent>
+                            <DialogContentText>
+                                <ChangePassword role={"teacher"} />
+                            </DialogContentText>
+                        </DialogContent>
+
+                        <DialogActions>
+                            <Button onClick={handleClose} color="primary">
+                                Close
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                 </div>
             </div>
         </div>

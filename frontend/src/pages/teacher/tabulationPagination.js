@@ -108,7 +108,6 @@ function Itemstabulation({ currentItems, listOfStudent }) {
                     <span>_______________________________________________________________________</span>
                 </div>
             </div>
-
         </>
     );
 }

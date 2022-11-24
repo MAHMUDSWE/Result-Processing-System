@@ -55,7 +55,9 @@ export default function StudentAdmitCard() {
                 }
             })
             .catch((error) => {
+                console.log(error);
                 if (error.response.status === 401) {
+                    alert(error.response.data.message);
                     console.log(error.response.data.message);
                 } else {
                     console.log(error);

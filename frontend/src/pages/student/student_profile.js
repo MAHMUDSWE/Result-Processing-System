@@ -3,9 +3,28 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/navbar'
 import './style/student_profile.css'
 
+import {
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    DialogContentText,
+    Dialog,
+    Button
+} from '@mui/material';
+import ChangePassword from '../changePassword';
+
 export default function StudentProfile() {
 
     const [studentDetails, setStudentDetails] = useState({});
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     useEffect(() => {
         axios.get('studentDetails')
@@ -57,7 +76,26 @@ export default function StudentProfile() {
                 </div>
 
                 <div className='ChangePassword-container'>
-                    <button>Change Password</button>
+                    <button className='editProfileButton'
+                        onClick={handleClickOpen}>Change Password</button>
+
+                    <Dialog open={open} onClose={handleClose}>
+                        <DialogTitle>
+                            {/* Change Password */}
+                        </DialogTitle>
+
+                        <DialogContent>
+                            <DialogContentText>
+                                <ChangePassword role={"student"} />
+                            </DialogContentText>
+                        </DialogContent>
+
+                        <DialogActions>
+                            <Button onClick={handleClose} color="primary">
+                                Close
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                 </div>
             </div>
         </div>

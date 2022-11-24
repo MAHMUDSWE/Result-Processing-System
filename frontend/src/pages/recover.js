@@ -5,13 +5,14 @@ import "./style/signup.css";
 import { Link } from 'react-router-dom';
 
 
-export default function Signup() {
+export default function RecoverPassword() {
 
     const [inputs, setInputs] = useState({
         showPassword: false
     });
     const [message, setMessage] = useState('');
     const [isSignUpSuccess, setIsSignupSuccess] = useState(false);
+    const [openPassword, setOpenPassword] = useState(false);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -22,21 +23,27 @@ export default function Signup() {
         setInputs({ ...inputs, showPassword: !inputs.showPassword });
     };
 
+    const handleSearchUsername = (event) => {
+        event.preventDefault();
+        setOpenPassword(true);
+        console.log(inputs);
+    }
     const handleSubmit = (event) => {
         event.preventDefault();
 
         let { username, password, confirm_password, registerAs } = inputs;
         let endPoint;
         if (registerAs === 'student') {
-            endPoint = 'student_signup';
+            endPoint = 'student_recover';
         }
         else if (registerAs === 'teacher') {
-            endPoint = 'teacher_signup';
+            endPoint = 'teacher_recover';
         }
         else if (registerAs === 'adminstrator') {
-            endPoint = 'adminstrator_signup';
+            endPoint = 'adminstrator_recover';
         }
         console.log(endPoint);
+        console.log(inputs);
 
         axios.put(`/${endPoint}`, {
             username, password, confirm_password
@@ -78,48 +85,54 @@ export default function Signup() {
 
                     <form onSubmit={handleSubmit}>
                         <div className='selectRole'>
-                            <p>Register as       <select required name='registerAs' onChange={handleChange}>
-                                <option value=''> register as</option>
+                            <p>Recover password  <select required name='registerAs' onChange={handleChange}>
+                                <option value=''> recover as</option>
                                 <option value='student'>Student</option>
                                 <option value='teacher'>Teacher</option>
                                 <option value='adminstrator'>Exam Controller</option>
                             </select>
                             </p>
                         </div>
-                        <input
-                            className='input1'
-                            type="text"
-                            name='username'
-                            value={inputs.username || ""}
-                            onChange={handleChange}
-                            autoComplete="off"
-                            placeholder="Username"
-                            required pattern="[a-z A-Z 0-9]+"
-                        />
-                        <input
-                            type={inputs.showPassword ? "text" : "password"}
-                            name='password'
-                            value={inputs.password || ""}
-                            onChange={handleChange}
-                            autoComplete="off"
-                            required placeholder="Password"
-                        />
-                        <input
-                            type={inputs.showPassword ? "text" : "password"}
-                            name='confirm_password'
-                            value={inputs.confirm_password || ""}
-                            onChange={handleChange}
-                            autoComplete="off"
-                            required placeholder="Confirm Password"
-                        />
-                        <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-                            <span className='toggle'> <input
-                                type="checkbox"
-                                onClick={handleClickShowPassword}
-                            /> Show Password</span>
-                        </div>
+                        {openPassword ? (<div>
+                            <input
+                                type={inputs.showPassword ? "text" : "password"}
+                                name='password'
+                                value={inputs.password || ""}
+                                onChange={handleChange}
+                                autoComplete="off"
+                                required placeholder="Set new password"
+                            />
+                            <input
+                                type={inputs.showPassword ? "text" : "password"}
+                                name='confirm_password'
+                                value={inputs.confirm_password || ""}
+                                onChange={handleChange}
+                                autoComplete="off"
+                                required placeholder="Confirm new password"
+                            />
+                            <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
+                                <span className='toggle'> <input
+                                    type="checkbox"
+                                    onClick={handleClickShowPassword}
+                                /> Show Password</span>
+                            </div>
+                            <button>recover</button>
+                        </div>) : (<div>
+                            <input
+                                className='input1'
+                                type="text"
+                                name='username'
+                                value={inputs.username || ""}
+                                onChange={handleChange}
+                                autoComplete="off"
+                                placeholder="Search Username"
+                                required pattern="[a-z A-Z 0-9]+"
+                            />
+                            <button onClick={handleSearchUsername}>Search</button>
+                        </div>)
+                        }
+
                         <span style={{ color: 'red' }}>{message}</span>
-                        <button>register</button>
                     </form>
                 </div>)}
         </div>

@@ -7,12 +7,14 @@ import AdminProfile from '../pages/admin/admin_profile'
 import AdminWorkspace from '../pages/admin/admin_workspace'
 import AssignCourse from '../pages/admin/assignCourse'
 import AdminCourseRegistrationApproval from '../pages/admin/courseRegistrationApproval'
+import CreateDepartment from '../pages/admin/createDepartment'
 
 import CreateCourse from '../pages/admin/create_course'
 import OfferCourse from '../pages/admin/offer_course'
 import StudentDetailsEntry from '../pages/admin/studentDetailsEntry'
 import TeacherDetailsEntry from '../pages/admin/teacherDetailsEntry'
 import HomePage from '../pages/home'
+import RecoverPassword from '../pages/recover'
 import Signup from '../pages/signup'
 import CourseRegistration from '../pages/student/course_registration'
 import StudentAdmitCard from '../pages/student/student_admitCard'
@@ -54,6 +56,10 @@ export default function PageRoutes() {
 
           <Route path="/signup" element={<ProtectedRoutesBeforeLogin>
             <Signup />
+          </ProtectedRoutesBeforeLogin>} />
+
+          <Route path="/recover" element={<ProtectedRoutesBeforeLogin>
+            <RecoverPassword />
           </ProtectedRoutesBeforeLogin>} />
 
           {/* ///////////////////////////////////////////////////////////////////////// */}
@@ -128,6 +134,10 @@ export default function PageRoutes() {
 
           <Route path="/admin_workspace/create_course" element={<AdminRoutesProtection>
             <CreateCourse />
+          </AdminRoutesProtection>} />
+
+          <Route path="/admin_workspace/create_department" element={<AdminRoutesProtection>
+            <CreateDepartment />
           </AdminRoutesProtection>} />
 
           <Route path="/admin_workspace/offer_course" element={<AdminRoutesProtection>

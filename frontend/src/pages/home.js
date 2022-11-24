@@ -33,7 +33,7 @@ export default function HomePage() {
                 >
                     Student Login
                 </a> */}
-                <Link className="Body-link" to='/admin_login'> Administrator Login</Link>
+                <Link className="Body-link" to='/admin_login'> Exam Controller Login</Link>
                 <Link className="Body-link" to='/teacher_login'> Teacher Login</Link>
                 <Link className="Body-link" to='/student_login'> Student Login</Link>
 

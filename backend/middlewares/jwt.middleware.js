@@ -26,6 +26,18 @@ function isPublicRoute(req) {
         console.log("inside");
         return true;
     }
+    else if (req.originalUrl == '/student_recover') {
+        console.log("inside");
+        return true;
+    }
+    else if (req.originalUrl == '/teacher_recover') {
+        console.log("inside");
+        return true;
+    }
+    else if (req.originalUrl == '/adminstrator_recover') {
+        console.log("inside");
+        return true;
+    }
 
     else {
         return false;

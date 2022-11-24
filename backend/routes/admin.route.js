@@ -11,7 +11,9 @@ const {
     adminLogin,
     getAdminDetails,
     getControllerApprovalDetails,
-    putAdminApproval
+    putAdminApproval,
+    recoverPassword,
+    changePassword
 } = require("../controllers/admin.controller");
 
 const router = express();
@@ -35,6 +37,10 @@ router.post("/assignCourse", assignCourseTeacher);
 router.get('/adminApproval', getControllerApprovalDetails);
 
 router.put('/adminApproval', putAdminApproval);
+
+router.put('/adminstrator_recover', recoverPassword);
+
+router.put('/adminstrator_changePassword', changePassword);
 
 router.put('/adminstrator_signup', adminSignUp);
 

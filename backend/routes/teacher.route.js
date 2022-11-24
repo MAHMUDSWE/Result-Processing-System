@@ -15,7 +15,9 @@ const {
     putTeacherApproval,
     getTeacherApprovalDetails,
     getTabulationSheet,
-    getAllAssignedCourseList
+    getAllAssignedCourseList,
+    recoverPassword,
+    changePassword
 } = require('../controllers/teacher.controller');
 
 const router = express();
@@ -47,6 +49,10 @@ router.get('/teacherApproval', getTeacherApprovalDetails);
 router.put('/teacherApproval', putTeacherApproval);
 
 router.get('/tabulationSheet', getTabulationSheet);
+
+router.put('/teacher_recover', recoverPassword);
+
+router.put('/teacher_changePassword', changePassword);
 
 router.put('/teacher_signup', teacherSignUp);
 

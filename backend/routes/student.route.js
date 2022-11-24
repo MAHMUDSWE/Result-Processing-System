@@ -7,7 +7,9 @@ const {
     studentSignUp,
     studentLogin,
     getApprovalStatus,
-    getAdmitCards
+    getAdmitCards,
+    recoverPassword,
+    changePassword
 } = require('../controllers/student.controller');
 
 const router = express();
@@ -23,6 +25,10 @@ router.post('/registerCourse', postRegisterCourse);
 router.get('/approvalStatus', getApprovalStatus);
 
 router.get('/admit_card', getAdmitCards);
+
+router.put('/student_recover', recoverPassword);
+
+router.put('/student_changePassword', changePassword);
 
 router.put('/student_signup', studentSignUp);
 

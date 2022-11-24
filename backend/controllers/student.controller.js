@@ -174,12 +174,18 @@ const getAdmitCards = async (req, res) => {
     var result = await function1();
     console.log(result);
 
-    if (result[0].Department_Head_Status === undefined || result[0].Department_Head_Status === 'DISAPPROVED' ||
+    if (result.length === 0) {
+        return res.status(401).json({
+            "message": `Didn't register courses.`,
+        });
+    }
+    else if (result[0].Department_Head_Status === undefined || result[0].Department_Head_Status === 'DISAPPROVED' ||
         result[0].Exam_Controller_Status === undefined || result[0].Exam_Controller_Status === 'DISAPPROVED') {
         return res.status(401).json({
             "message": `Course Registration is Disaproved.`,
         });
     }
+
 
     var query = `SELECT tbl_takes.reg_no, tbl_takes.course_id, tbl_takes.semester, tbl_takes.session as 'courseSession', tbl_takes.USN,
                  tbl_student.std_name, tbl_student.session,
@@ -205,6 +211,117 @@ const getAdmitCards = async (req, res) => {
         else {
             res.status(400).json({
                 "message": "Course list get failed",
+                err,
+            });
+        }
+    })
+}
+
+const recoverPassword = async (req, res) => {
+    let { password, confirm_password } = req.body;
+    let reg_no = req.body.username;
+
+    let function1 = async () => {
+        let results = await new Promise((resolve, reject) => db.query('SELECT count(*) as count FROM tbl_student WHERE reg_no = ? and password != "" AND password != "null"', [reg_no], (err, results) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(results);
+            }
+        }))
+        return results;
+    }
+
+    var result = await function1();
+
+    if (result[0].count === 0) {
+        return res.status(409).json({
+            "message": `Not Registered`,
+        });
+    }
+
+    if (password === confirm_password) {
+        password = await bcrypt.hash(req.body.password, 10);
+    }
+    else {
+        return res.status(400).json({
+            "message": "Password didn't match",
+        });
+    }
+
+    var query = 'UPDATE tbl_student SET password = ? WHERE reg_no = ?';
+
+    db.query(query, [password, reg_no], (err, result) => {
+
+        if (!err && result.affectedRows === 1) {
+            res.status(200).json({
+                "message": `New Password Set Successful`,
+            });
+        }
+        else {
+            res.status(400).json({
+                "message": "Password recover failed. Invalid username or password",
+                err,
+            });
+        }
+    })
+}
+
+const changePassword = async (req, res) => {
+    console.log(req.body);
+    let { old_password, password, confirm_password } = req.body;
+    let { reg_no } = req;
+
+    // old_password = await bcrypt.hash(old_password, 10);
+    // console.log(old_password);
+
+    let function1 = async () => {
+        let results = await new Promise((resolve, reject) => db.query(`SELECT * FROM tbl_student WHERE reg_no = ${reg_no} `, (err, results) => {
+            console.log(results);
+            if (err) {
+                reject(err);
+            } else {
+                resolve(results);
+            }
+        }))
+        return results;
+    }
+
+    var result = await function1();
+    var hashedPassword = result[0].password;
+
+    if (result[0].count === 0) {
+        return res.status(409).json({
+            "message": `Not Yet Registered`,
+        });
+    }
+    if (!await bcrypt.compare(old_password, hashedPassword)) {
+        return res.status(409).json({
+            "message": `Wrong old password`,
+        });
+    }
+
+    if (password === confirm_password) {
+        password = await bcrypt.hash(req.body.password, 10);
+    }
+    else {
+        return res.status(400).json({
+            "message": "Password didn't match",
+        });
+    }
+
+    var query = 'UPDATE tbl_student SET password = ? WHERE reg_no = ?';
+
+    db.query(query, [password, reg_no], (err, result) => {
+
+        if (!err && result.affectedRows === 1) {
+            res.status(200).json({
+                "message": `Password Change Successful`,
+            });
+        }
+        else {
+            res.status(400).json({
+                "message": "Password change failed. Invalid username or password",
                 err,
             });
         }
@@ -342,6 +459,8 @@ module.exports = {
     postRegisterCourse,
     getApprovalStatus,
     getAdmitCards,
+    recoverPassword,
+    changePassword,
     studentSignUp,
     studentLogin
 };

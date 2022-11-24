@@ -55,11 +55,15 @@ const getCourseList = (req, res) => {
 
 const postCreateDepartment = (req, res) => {
 
-    var { values } = req.body;
+    var { dept_id, dept_name } = req.body;
 
-    var query = "insert into tbl_department values ? ";
+    console.log(dept_id, dept_name);
 
-    db.query(query, [values], (err, result) => {
+    var query = `insert into tbl_department values(${dept_id}, "${dept_name}")`;
+
+    console.log(query);
+
+    db.query(query, (err, result) => {
         if (!err) {
             res.status(200).json({
                 "message": "Department create successful",
@@ -270,6 +274,120 @@ const putAdminApproval = (req, res) => {
     })
 }
 
+
+const recoverPassword = async (req, res) => {
+    let { password, confirm_password } = req.body;
+    let admin_id = req.body.username;
+
+    let function1 = async () => {
+        let results = await new Promise((resolve, reject) => db.query('SELECT count(*) as count FROM tbl_admin WHERE admin_id = ? and password != "" AND password != "null"', [admin_id], (err, results) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(results);
+            }
+        }))
+        return results;
+    }
+
+    var result = await function1();
+
+    if (result[0].count === 0) {
+        return res.status(409).json({
+            "message": `Not yet Registered.`,
+        });
+    }
+
+    if (password === confirm_password) {
+        password = await bcrypt.hash(req.body.password, 10);
+    }
+    else {
+        return res.status(400).json({
+            "message": "Password didn't match",
+        });
+    }
+
+    // functionality to send an otp
+
+    var query = 'UPDATE tbl_admin SET password = ? WHERE admin_id = ?';
+
+    db.query(query, [password, admin_id], (err, result) => {
+
+        if (!err && result.affectedRows === 1) {
+            res.status(200).json({
+                "message": `New password set Successful`,
+            });
+        }
+        else {
+            res.status(400).json({
+                "message": "New password set failed. Invalid username or password",
+                err,
+            });
+        }
+    })
+}
+
+const changePassword = async (req, res) => {
+    console.log(req.body);
+    let { old_password, password, confirm_password } = req.body;
+    let { admin_id } = req;
+
+    // old_password = await bcrypt.hash(old_password, 10);
+    // console.log(old_password);
+
+    let function1 = async () => {
+        let results = await new Promise((resolve, reject) => db.query(`SELECT * FROM tbl_admin WHERE admin_id = ${admin_id} `, (err, results) => {
+            console.log(results);
+            if (err) {
+                reject(err);
+            } else {
+                resolve(results);
+            }
+        }))
+        return results;
+    }
+
+    var result = await function1();
+    var hashedPassword = result[0].password;
+
+    if (result[0].count === 0) {
+        return res.status(409).json({
+            "message": `Not Yet Registered`,
+        });
+    }
+    if (!await bcrypt.compare(old_password, hashedPassword)) {
+        return res.status(409).json({
+            "message": `Wrong old password`,
+        });
+    }
+
+    if (password === confirm_password) {
+        password = await bcrypt.hash(req.body.password, 10);
+    }
+    else {
+        return res.status(400).json({
+            "message": "Password didn't match",
+        });
+    }
+
+    var query = 'UPDATE tbl_admin SET password = ? WHERE admin_id = ?';
+
+    db.query(query, [password, admin_id], (err, result) => {
+
+        if (!err && result.affectedRows === 1) {
+            res.status(200).json({
+                "message": `Password Change Successful`,
+            });
+        }
+        else {
+            res.status(400).json({
+                "message": "Password change failed. Invalid username or password",
+                err,
+            });
+        }
+    })
+}
+
 const adminSignUp = async (req, res) => {
     let { password, confirm_password } = req.body;
     let admin_id = req.body.username;
@@ -402,6 +520,8 @@ module.exports = {
     assignCourseTeacher,
     getControllerApprovalDetails,
     putAdminApproval,
+    recoverPassword,
+    changePassword,
     adminSignUp,
     adminLogin
 };
